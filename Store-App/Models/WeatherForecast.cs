@@ -1,4 +1,4 @@
-namespace Store_App
+namespace Store_App.Models
 {
     public class WeatherForecast
     {
