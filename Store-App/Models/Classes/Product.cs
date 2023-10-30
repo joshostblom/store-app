@@ -4,5 +4,6 @@ namespace Store_App.Models.Classes
 {
     public class Product : IProduct
     {
+        double Price { get; set; }
     }
 }
