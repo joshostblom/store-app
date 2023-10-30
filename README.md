@@ -48,21 +48,3 @@ If you have any questions or need assistance, feel free to reach out to any of o
 9. **Sale Information:** Sale details include the start and end dates, applicable products or categories, and the discount amount (dollar amount or percentage).
 
 10. **User Privacy:** Users can be confident that their information and cart contents are kept private and secure, with no visibility into other users' data.
-
-## Getting Started
-
-To get started with the Online Store App, follow these steps:
-
-1. **Installation:** Clone this repository to your local machine.
-
-2. **Setup:** Set up the required environment, including web server and database configurations.
-
-3. **Database Initialization:** Initialize the database with the provided schema to store products, sales, and user data.
-
-4. **Configuration:** Customize the application to suit your specific market and product offerings. Update product categories, prices, and sales information as needed.
-
-5. **Development:** Start developing your Online Store's frontend and backend. Ensure that business logic and database interactions are handled correctly and securely.
-
-6. **Testing:** Thoroughly test all features, ensuring that users can browse, select, and purchase products without issues.
-
-7. **Deployment:** Deploy the Online Store App to a web server to make it accessible to users.
