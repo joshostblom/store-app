@@ -27,9 +27,6 @@ Meet the dedicated team members:
 
 If you have any questions or need assistance, feel free to reach out to any of our team members.
 
-**The Online Store App Team**
-
-
 ### Key Features
 
 1. **User Authentication:** Users can create accounts and log in to access personalized shopping experiences.
