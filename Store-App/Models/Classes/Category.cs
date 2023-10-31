@@ -2,18 +2,17 @@
 
 namespace Store_App.Models.Classes
 {
-    public class Product : IProduct
+    public class Category : ICategory
     {
         public string Name { get; set; }
-        public double Price { get; set; }
+        public List<Product> Products { get; set; }
         public string? SaleInfo { get; set; }
 
-        public Product(string name, double price, string saleInfo)
+        public Category(string name, List<Product> products, string saleInfo)
         {
             this.Name = name;
-            this.Price = price;
+            this.Products = products;
             this.SaleInfo = saleInfo;
         }
-
     }
 }
