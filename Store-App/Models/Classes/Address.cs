@@ -1,8 +1,9 @@
 ﻿using System.Runtime.InteropServices;
+using Store_App.Models.Interfaces;
 
 namespace Store_App.Models.Classes
 {
-    public class Address
+    public class Address : IAddress
     {
         public string Street { get; set; }
         public string City { get; set; }

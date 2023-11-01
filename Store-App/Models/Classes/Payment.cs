@@ -1,6 +1,8 @@
-﻿namespace Store_App.Models.Classes
+﻿using Store_App.Models.Interfaces;
+
+namespace Store_App.Models.Classes
 {
-    public class Payment
+    public class Payment : IPayment
     {
         public string CardName { get; set; }
         public string CardNumber { get; set; }
