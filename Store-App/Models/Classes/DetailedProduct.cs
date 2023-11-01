@@ -11,8 +11,8 @@
         public double Length { get; set;}
         public double Weight { get; set;}
 
-        public DetailedProduct(string name, double price, string saleInfo, string sku, double rating, string description, string manufacturerInfo, double height,
-            double width, double length, double weight) : base(name, price, saleInfo)
+        public DetailedProduct(string name, double price, string imageUrl, string saleInfo, string sku, double rating, string description, string manufacturerInfo, double height,
+            double width, double length, double weight) : base(name, price, imageUrl, saleInfo)
         {
             this.Sku = sku;
             this.Rating = rating;
