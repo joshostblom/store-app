@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\src\assets\" />
+    <Folder Include="ClientApp\src\components\NavMenu\SearchBar\" />
     <Folder Include="ClientApp\src\hooks\" />
     <Folder Include="ClientApp\src\utils\helpers\" />
   </ItemGroup>
