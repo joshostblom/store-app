@@ -6,7 +6,7 @@ namespace Store_App.Models.Classes
     {
         public string Name { get; set; }
         public List<Product> Products { get; set; }
-        public string? SaleInfo { get; set; }
+        public string SaleInfo { get; set; }
 
         public Category(string name, List<Product> products, string saleInfo)
         {
