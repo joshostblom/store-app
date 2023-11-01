@@ -9,7 +9,7 @@ namespace Store_App.Models.Classes
         public string ImageURL { get; set; }
         public string? SaleInfo { get; set; }
 
-        public Product(string name, double price, string imageURL, string saleInfo)
+        public Product(string name, double price, string imageURL, string? saleInfo)
         {
             this.Name = name;
             this.Price = price;
