@@ -1,7 +1,12 @@
-﻿a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+﻿.container {
+    overflow: visible;
+    height: 50px;
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 html {
