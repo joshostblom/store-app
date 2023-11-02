@@ -13,7 +13,7 @@ namespace Tutorial.SqlConn
         {
             string datasource = @"DESKTOP-ET5DFTO\SQLEXPRESS";
             string database = "store-app-db";
-            string username = "sa";
+            string username = "store-admin";
             string password = "brand-new-store-2023";
             return DBSQLServerUtils.GetDBConnection(datasource, database, username, password);
         }
