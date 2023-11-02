@@ -1,12 +1,13 @@
 import { useState } from 'react';
+import "./SearchBar.css"
 
-const SearchBar = () => {
+export const SearchBar = () => {
 
     const [query, setQuery] = useState("");
 
     return (
-        <div>
-            <input type="text" onChange={e => setQuery(e.target.value)} />
+        <div className="search-bar-container">
+            <input type="text" placeholder="Search for categories or items" onChange={e => setQuery(e.target.value)} />
         </div>
     );
 }
