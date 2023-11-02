@@ -1,5 +1,6 @@
 ﻿.container {
-    align-items: center;
+    overflow: visible;
+    height: 50px;
 }
 
 a.navbar-brand {
