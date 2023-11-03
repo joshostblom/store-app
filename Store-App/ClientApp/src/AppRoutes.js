@@ -1,6 +1,7 @@
 import { Counter } from "./components/template-examples/Counter/Counter";
 import { FetchData } from "./components/template-examples/FetchData/FetchData";
 import { Home } from "./components/template-examples/Home/Home";
+import { LoginPage } from "./pages/LoginPage/LoginPage";
 
 const AppRoutes = [
   {
@@ -14,6 +15,10 @@ const AppRoutes = [
   {
     path: '/fetch-data',
     element: <FetchData />
+  },
+  {
+      path: '/login',
+      element: <LoginPage />
   }
 ];
 
