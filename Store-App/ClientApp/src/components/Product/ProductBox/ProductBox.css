@@ -1,0 +1,15 @@
+﻿.product {
+    display: flex;
+    align-items: center;
+    display: inline-block;
+    width: 100px; /* Set the desired width */
+    height: auto; /* Automatically adjust height to maintain aspect ratio */
+    margin: 5px;
+}
+
+.product img {
+    display: inline-block;
+    width: 100px; /* Set the desired width */
+    height: auto; /* Automatically adjust height to maintain aspect ratio */
+    margin: 5px;
+}
