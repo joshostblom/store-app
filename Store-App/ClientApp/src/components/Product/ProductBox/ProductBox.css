@@ -5,11 +5,26 @@
     width: 100px; /* Set the desired width */
     height: auto; /* Automatically adjust height to maintain aspect ratio */
     margin: 5px;
+    padding: 10px;
 }
 
-.product img {
-    display: inline-block;
-    width: 100px; /* Set the desired width */
-    height: auto; /* Automatically adjust height to maintain aspect ratio */
-    margin: 5px;
+    .product img {
+        display: inline-block;
+        width: 100px; /* Set the desired width */
+        height: auto; /* Automatically adjust height to maintain aspect ratio */
+        margin: 5px;
+        max-height: 100px;
+        max-width: 100%;
+        display: block; /* Center-align the image horizontally */
+        vertical-align: top; /* Center-align the image vertically */
+    }
+
+.product-title {
+    font-size: 14px;
+    text-align: center;
+    line-height: 1.2; /* Adjust line-height to control the number of lines */
+    height: 2.4em; /* Set a fixed height to limit the title to two lines */
+    overflow: hidden;
+    margin-top: 10px; /* Add some margin to separate the image and text */
 }
+

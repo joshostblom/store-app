@@ -24,8 +24,10 @@ export const DisplayProductBoxes = () => {
             {products.length > 0 ? (
                 products.map((product) => (
                     <div key={product.id} className="product">
-                        {/* Render product information here */}
-                        <img src={product.url} alt={product.title} />
+                        <div className="product-image">
+                            <img src={product.url} alt={product.title} />
+                        </div>
+                        <h5 className="product-title">{product.title}</h5>
                     </div>
                 ))
             ) : (
