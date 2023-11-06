@@ -8,7 +8,20 @@ code {
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: deepskyblue;
+    width: auto;
+    border:none;
+    box-shadow: 0px 0px 8px #ddd;
+    border-radius: 15px;
+    padding: 5px 15px 5px 15px;
+    margin: 5px;
+}
+
+.text-field {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 8px #ddd;
+    width:auto;
 }
