@@ -5,12 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 
-namespace Tutorial.SqlConn
+namespace Store_App.DataDB
 {
     class DBSQLServerUtils
     {
-        public static SqlConnection
-                 GetDBConnection(string datasource, string database, string username, string password)
+        public static SqlConnection GetDBConnection(string datasource, string database, string username, string password)
         {
             //Data Source=DESKTOP-ET5DFTO\SQLEXPRESS;Initial Catalog=store-app-db;Integrated Security = True
             
