@@ -8,7 +8,7 @@ using Store_App.Models.DBClasses;
 
 namespace Store_App.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
@@ -17,6 +17,15 @@ namespace Store_App.Controllers
         public ProductController(StoreAppDbContext productContext)
         {
             _productContext = productContext;
+        }
+
+        [HttpGet]
+        public Product GetTest()
+        {
+            return new Product()
+            {
+                ProductName = "This product was retrieved from the ProductController GetTest method!",
+            };
         }
 
         [HttpGet]
