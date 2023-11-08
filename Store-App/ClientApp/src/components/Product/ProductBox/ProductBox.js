@@ -17,7 +17,7 @@ export const DisplayProductBoxes = () => {
         fetchData();
     }, []);
 
-    console.log("Products: ", products);
+    //console.log("Products: ", products);
 
     return (
         <main>
