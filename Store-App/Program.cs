@@ -12,11 +12,6 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<StoreAppDbContext>(options =>
     options.UseSqlServer(ConfigHelper.GetConnectionString()));
 
-/*
-builder.Services.AddDbContext<StoreAppDbContext>(options =>
-    options.UseSqlServer("server=209.50.10.62,49170; database=master;User Id=store-admin;password=brand-new-store-2023;TrustServerCertificate=True"));
-*/
-
 builder.Services.AddCors();
 
 var app = builder.Build();
