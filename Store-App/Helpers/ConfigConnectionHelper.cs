@@ -1,4 +1,5 @@
-﻿public static class ConfigConnectionHelper
+﻿namespace Store_App.Helpers;
+public static class ConfigConnectionHelper
 {
     private static readonly IConfigurationRoot Configuration;
 

@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json.Serialization;
+using Store_App.Helpers;
 using Store_App.Models.DBClasses;
 
 var builder = WebApplication.CreateBuilder(args);
