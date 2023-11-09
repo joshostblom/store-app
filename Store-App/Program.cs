@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<StoreAppDbContext>(options =>
-    options.UseSqlServer(ConfigHelper.GetConnectionString()));
+    options.UseSqlServer(ConfigConnectionHelper.GetConnectionString()));
 
 builder.Services.AddCors();
 

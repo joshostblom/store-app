@@ -1,8 +1,8 @@
-﻿public static class ConfigHelper
+﻿public static class ConfigConnectionHelper
 {
     private static readonly IConfigurationRoot Configuration;
 
-    static ConfigHelper()
+    static ConfigConnectionHelper()
     {
         Configuration = new ConfigurationBuilder()
             .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
