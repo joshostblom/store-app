@@ -37,7 +37,7 @@ public partial class StoreAppDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=209.50.10.62,49170; database=master;User Id=store-admin;password=brand-new-store-2023;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer(ConfigHelper.GetConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
