@@ -1,20 +1,17 @@
-﻿namespace Store_App.Helpers
+﻿public static class ConfigConnectionHelper
 {
-    public static class ConfigConnectionHelper
+    private static readonly IConfigurationRoot Configuration;
+
+    static ConfigConnectionHelper()
     {
-        private static readonly IConfigurationRoot Configuration;
+        Configuration = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json")
+            .Build();
+    }
 
-        static ConfigConnectionHelper()
-        {
-            Configuration = new ConfigurationBuilder()
-                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                .AddJsonFile("appsettings.json")
-                .Build();
-        }
-
-        public static string GetConnectionString()
-        {
-            return Configuration.GetConnectionString("ShoppingAppCon");
-        }
+    public static string GetConnectionString()
+    {
+        return Configuration.GetConnectionString("ShoppingAppCon");
     }
 }
