@@ -11,8 +11,8 @@ namespace Store_App.DataDB
     {
         public static SqlConnection GetDBConnection()
         {
-            string datasource = @"DESKTOP-ET5DFTO\SQLEXPRESS";
-            string database = "store-app-db";
+            string datasource = @"209.50.10.62,49170";
+            string database = "master";
             string username = "store-admin";
             string password = "brand-new-store-2023";
             return DBSQLServerUtils.GetDBConnection(datasource, database, username, password);
