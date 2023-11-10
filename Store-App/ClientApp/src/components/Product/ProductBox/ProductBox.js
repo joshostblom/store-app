@@ -1,7 +1,7 @@
 ﻿import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai'
 import "./ProductBox.css"
+import { DisplayDetailedProduct } from "../DetailedProduct/DetailedProduct.js";
 
 export const DisplayProductBoxes = () => {
 
@@ -28,6 +28,7 @@ export const DisplayProductBoxes = () => {
                 console.log("Test: ", json);
                 setProductById(json);
                 // call function to display detailed product box
+                DisplayDetailedProduct(productId);
             })
             .catch((reason) => {
                 setProductById({ productName: "Request failed! Press f12 to check error." });
@@ -38,12 +39,10 @@ export const DisplayProductBoxes = () => {
         <main>
             {products.length > 0 ? (
                 products.map((product) => (
-                    <div key={product.productId} className="product">
-                        <Link to={`/detailed-product/${product.productId}`}>
+                    <div key={product.productId} className="product" onClick={() => handleProductClick(product.productId)}>
                         <div className="product-image">
                             <img src={product.imageUrl} alt={product.productName} />
                         </div>
-                        </Link>
                         <h5 className="product-title">{product.productName}</h5>
                         {/* <div>{productById.productName}</div> */}
                     </div>
