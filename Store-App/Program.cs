@@ -1,10 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using Store_App.Helpers;
+using Store_App.Models.DBClasses;
+using Store_App.Helpers;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<StoreAppDbContext>(options =>
+    options.UseSqlServer(ConfigConnectionHelper.GetConnectionString()));
+
+builder.Services.AddCors();
 
 var app = builder.Build();
+
+app.UseCors(builder =>
+{
+    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+});
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -23,5 +37,6 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
+
 
 app.Run();
