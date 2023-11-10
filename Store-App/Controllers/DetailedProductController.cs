@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Store_App.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class DetailedProductController : ControllerBase
     {
@@ -24,10 +24,12 @@ namespace Store_App.Controllers
         [HttpGet("{detailedProductId}")]
         public async Task<ActionResult<DetailedProduct>> GetDetailedProduct(int detailedProductId)
         {
+            Console.WriteLine("*****************GetDetailedProduct*****************");
             var detailedProduct = await _detailedProductContext.DetailedProducts.FindAsync(detailedProductId);
 
             if (detailedProduct == null)
             {
+                Console.WriteLine("*****************NULL DetailedProduct*****************");
                 return NotFound();
             }
 
