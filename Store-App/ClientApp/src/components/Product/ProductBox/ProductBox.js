@@ -6,7 +6,7 @@ export const DisplayProductBoxes = () => {
 
     // Setting the default state to an empty list of products
     const [products, setProducts] = useState([]);
-    const dataType = 1;
+    const [productById, setProductById] = useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -19,15 +19,30 @@ export const DisplayProductBoxes = () => {
 
     console.log("Products: ", products);
 
+    const handleProductClick = async (productId) => {
+        console.log("Product ID: ", productId);
+        fetch(`product/getProduct/${productId}`)
+            .then((response) => response.json())
+            .then((json) => {
+                console.log("Test: ", json);
+                setProductById(json);
+                // call function to display detailed product box
+            })
+            .catch((reason) => {
+                setProductById({ productName: "Request failed! Press f12 to check error." });
+            });
+    }
+
     return (
         <main>
             {products.length > 0 ? (
                 products.map((product) => (
-                    <div key={product.productId} className="product">
+                    <div key={product.productId} className="product" onClick={() => handleProductClick(product.productId)}>
                         <div className="product-image">
                             <img src={product.imageUrl} alt={product.productName} />
                         </div>
                         <h5 className="product-title">{product.productName}</h5>
+                        {/* <div>{productById.productName}</div> */}
                     </div>
                 ))
             ) : (
