@@ -11,29 +11,39 @@ const createMarkup = (text) => {
 }
 
 //addProduct
-export const DisplayDetailedProduct = () => {
+export const DisplayDetailedProduct = (id) => {
     const [product, setProduct] = useState({});
-    const [quantity, setQuantity] = useState(1);
-    const { productId } = useParams();
+    //const [quantity, setQuantity] = useState(1);
+    //const { id } = useParams();
 
-    const fetchProduct = async (id) => {
-        try {
+   // const fetchProduct = async (id) => {
+        //try {
             // Replace this URL with your actual endpoint for fetching product details
-            const response = await fetch(`/detailed-product/${id}`);
-            const data = await response.json();
+            //const response = await fetch(`product/getProduct/${id}`);
+            //const data = await response.json();
 
             // Update the state with the fetched product data
-            setProduct(data)
-                
-        } catch (error) {
-            console.error("Error fetching product:", error);
-        }
-    };
+            //setProduct(data)
 
+       // } catch (error) {
+           // console.error("Error fetching product:", error);
+        //}
+    //};
+
+
+    
     useEffect(() => {
-        fetchProduct(productId);  // Fetch product data when the component mounts
-    }, [productId]);
+        async function fetchData() {
+            const response = await fetch(`detailedproduct/getDetailedProduct/${id}`);
+            const data = await response.json();
+            setProduct(data)
 
+        }
+        fetchData();  // Fetch product data when the component mounts
+    }, [id]);
+    
+
+    /*
     const handleQuantity = (param) => {
         if (param === "decrease" && quantity > 1) {
             setQuantity(quantity - 1);
@@ -42,7 +52,8 @@ export const DisplayDetailedProduct = () => {
             setQuantity(quantity + 1);
         }
     };
-
+    */
+   /*
     return (
         <Container className="detailed-product">
             <Grid container spacing={4}>
@@ -104,6 +115,25 @@ export const DisplayDetailedProduct = () => {
                 </Grid>
             </Grid>
         </Container>
+    );
+    */
+    return (
+        <main>
+            {product.length > 0 ? (
+                product.map((product) => (
+                    <div key={product.productId} className="product">
+                        <Link to={`/detailed-product/${product.productId}`}>
+                            <div className="product-image">
+                                <img src={product.imageUrl} alt={product.productName} />
+                            </div>
+                        </Link>
+                        <h5 className="product-title">{product.productName}</h5>
+                    </div>
+                ))
+            ) : (
+                <div>Loading...</div>
+            )}
+        </main>
     );
 };
 
