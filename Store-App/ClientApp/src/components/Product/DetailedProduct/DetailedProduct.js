@@ -13,11 +13,11 @@ export const DisplayDetailedProduct = () => {
     const { productId } = useParams();
     console.log("Calling DisplayDetailedProduct....");
     const [product, setProduct] = useState({});
-    console.log("after use state")
+    console.log("Product Id: ", productId)
     
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(`product/GetProduct/${productId}`);
+            const response = await fetch(`detailedProduct/GetDetailedProduct/${productId}`);
             const data = await response.json();
             setProduct(data)
             console.log("In use effect")
