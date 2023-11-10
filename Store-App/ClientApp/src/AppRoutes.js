@@ -14,13 +14,9 @@ const AppRoutes = [
     element: <APITest />
   },
   {
-    path: '/fetch-data',
-    element: <FetchData />
+    path: '/login',
+    element: <LoginPage />
   },
-  {
-      path: '/login',
-      element: <LoginPage />
-  }
   
 ];
 

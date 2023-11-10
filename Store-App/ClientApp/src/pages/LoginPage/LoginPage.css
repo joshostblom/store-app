@@ -1,5 +1,11 @@
-﻿.container {
-    display: flex;
-    align-content: center;
-    justify-content: center;
+﻿.login-header {
+    width:auto;
+}
+
+.text-field {
+    max-width: 250px;
+}
+
+.btn-primary {
+    max-width: 200px;
 }

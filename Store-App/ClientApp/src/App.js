@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
 import { Layout } from './pages/Layout';
 import './custom.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class App extends Component {
   static displayName = App.name;
