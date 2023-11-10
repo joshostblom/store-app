@@ -17,9 +17,10 @@ const AppRoutes = [
     path: '/fetch-data',
     element: <FetchData />
   },
+
   {
-    path: '/detailed-product/:id',
-      element: <DisplayDetailedProduct />
+    path: '/detailed-view/:productId',
+    element: <DisplayDetailedProduct />
   }
   
 ];

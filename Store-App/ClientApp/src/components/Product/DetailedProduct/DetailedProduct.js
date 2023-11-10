@@ -9,24 +9,29 @@ const createMarkup = (text) => {
 }
 
 //addProduct
-export const DisplayDetailedProduct = (id) => {
+export const DisplayDetailedProduct = () => { 
+    const { productId } = useParams();
     console.log("Calling DisplayDetailedProduct....");
     const [product, setProduct] = useState({});
+    console.log("after use state")
     
     useEffect(() => {
         async function fetchData() {
-            const response = await fetch(`detailedproduct/getDetailedProduct/${id}`);
+            const response = await fetch(`product/GetProduct/${productId}`);
             const data = await response.json();
             setProduct(data)
-
+            console.log("In use effect")
         }
         fetchData();  // Fetch product data when the component mounts
-    }, [id]);
-   
+    }, [productId]);
+
+    console.log("DetailedProduct: ", product)
+
+    /*
     return (
         <main>
             {product.length > 0 ? (
-                product.map((product) => (
+               product.map((product) => (
                     <div key={product.detailedProductId} className="product">
                             <div className="product-image">
                     </div>
@@ -41,3 +46,20 @@ export const DisplayDetailedProduct = (id) => {
 };
 
 export default DisplayDetailedProduct;
+*/
+
+    return (
+        <main>
+            {Object.keys(product).length > 0 ? (
+                <div className="product">
+                    <div className="product-image"></div>
+                    <h5 className="product-title">{product.manufacturerInformation}</h5>
+                </div>
+            ) : (
+                <div>Loading...</div>
+            )}
+        </main>
+    );
+};
+
+export default DisplayDetailedProduct;         

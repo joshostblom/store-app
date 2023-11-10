@@ -1,7 +1,7 @@
 ﻿import { useEffect, useState } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai'
-import "./ProductBox.css"
+import { Link } from 'react-router-dom';
 import { DisplayDetailedProduct } from "../DetailedProduct/DetailedProduct.js";
+import "./ProductBox.css";
 
 export const DisplayProductBoxes = () => {
 
@@ -40,10 +40,12 @@ export const DisplayProductBoxes = () => {
             {products.length > 0 ? (
                 products.map((product) => (
                     <div key={product.productId} className="product" onClick={() => handleProductClick(product.productId)}>
+                      <Link to={`detailed-view/${product.productId}`}>
                         <div className="product-image">
                             <img src={product.imageUrl} alt={product.productName} />
                         </div>
-                        <h5 className="product-title">{product.productName}</h5>
+                      </Link>
+                    <h5 className="product-title">{product.productName}</h5>
                         {/* <div>{productById.productName}</div> */}
                     </div>
                 ))
