@@ -11,7 +11,7 @@ namespace Store_App.Models.DBClasses
 
         public double? Price { get; set; }
 
-        public byte[]? ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
 
         public int? SaleId { get; set; }
 

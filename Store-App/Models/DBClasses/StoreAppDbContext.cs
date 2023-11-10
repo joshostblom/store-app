@@ -174,13 +174,14 @@ namespace Store_App.Models.DBClasses
 
                 entity.ToTable("Product");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-                entity.Property(e => e.ImageUrl).HasColumnName("ImageURL");
-                entity.Property(e => e.ProductName)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-                entity.Property(e => e.SaleId).HasColumnName("SaleID");
-            });
+            entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            entity.Property(e => e.ImageUrl).HasColumnName("ImageURL")
+            .HasConversion<byte[]>();
+            entity.Property(e => e.ProductName)
+                .HasMaxLength(255)
+                .IsUnicode(false);
+            entity.Property(e => e.SaleId).HasColumnName("SaleID");
+        });
 
             modelBuilder.Entity<ProductToCart>(entity =>
             {
