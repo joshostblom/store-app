@@ -173,7 +173,8 @@ public partial class StoreAppDbContext : DbContext
             entity.ToTable("Product");
 
             entity.Property(e => e.ProductId).HasColumnName("ProductID");
-            entity.Property(e => e.ImageUrl).HasColumnName("ImageURL");
+            entity.Property(e => e.ImageUrl).HasColumnName("ImageURL")
+            .HasConversion<byte[]>();
             entity.Property(e => e.ProductName)
                 .HasMaxLength(255)
                 .IsUnicode(false);

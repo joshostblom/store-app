@@ -11,7 +11,7 @@ public partial class Product
 
     public double? Price { get; set; }
 
-    public byte[]? ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
 
     public int? SaleId { get; set; }
 
