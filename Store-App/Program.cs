@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Store_App.Helpers;
 using Store_App.Models.DBClasses;
+using Store_App.Helpers;
 
 var builder = WebApplication.CreateBuilder(args);
 
