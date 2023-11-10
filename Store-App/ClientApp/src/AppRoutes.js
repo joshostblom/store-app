@@ -17,11 +17,12 @@ const AppRoutes = [
     path: '/fetch-data',
     element: <FetchData />
   },
-
+  
   {
     path: '/detailed-view/:productId',
     element: <DisplayDetailedProduct />
   }
+    
   
 ];
 

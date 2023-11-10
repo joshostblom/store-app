@@ -52,8 +52,11 @@ export default DisplayDetailedProduct;
         <main>
             {Object.keys(product).length > 0 ? (
                 <div className="product">
-                    <div className="product-image"></div>
-                    <h5 className="product-title">{product.manufacturerInformation}</h5>
+                    <div className="product-image">
+                        <img src={product.imageUrl} alt={product.productName} />
+                    </div>
+                    <h5 className="product-title">{product.productName}</h5>
+                    <h6 className="price">{product.price}</h6>
                 </div>
             ) : (
                 <div>Loading...</div>
