@@ -1,6 +1,5 @@
 import { DisplayProductBoxes } from "./components/Product/ProductBox/ProductBox";
 import { APITest } from "./components/APITest/APITest";
-import { FetchData } from "./components/template-examples/FetchData/FetchData";
 import { LoginPage } from "./pages/LoginPage/LoginPage";
 
 const AppRoutes = [
