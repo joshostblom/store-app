@@ -6,7 +6,6 @@ export const DisplayProductBoxes = () => {
 
     // Setting the default state to an empty list of products
     const [products, setProducts] = useState([]);
-    const dataType = 1;
 
     useEffect(() => {
         async function fetchData() {
@@ -17,7 +16,7 @@ export const DisplayProductBoxes = () => {
         fetchData();
     }, []);
 
-    console.log("Products: ", products);
+    //console.log("Products: ", products);
 
     return (
         <main>
