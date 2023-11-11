@@ -8,6 +8,16 @@ export const NavMenu = ({ isLoggedIn, setLoggedIn }) => {
 
     const [collapsed, setCollapsed] = useState(false);
 
+    function logout() {
+        fetch('person/logout')
+            .then((response) => response.json())
+            .then((loggedOut) => {
+                if (loggedOut) {
+                    setLoggedIn(false);
+                }
+            });
+    }
+
     return (
         <header>
             <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" container light>
@@ -24,7 +34,7 @@ export const NavMenu = ({ isLoggedIn, setLoggedIn }) => {
                         </NavItem>
                         <NavItem>
                             {isLoggedIn ? (
-                                <div class="text-dark nav-link" onClick={() => setLoggedIn(false)}>Logout</div>
+                                <div class="text-dark nav-link" onClick={() => logout()}>Logout</div>
                             ) : (
                                 <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
                             )}

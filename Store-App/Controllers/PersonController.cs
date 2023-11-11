@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Store_App.Helpers;
 using Store_App.Models.Authentication;
 using Store_App.Models.DBClasses;
 using System;
@@ -25,12 +26,22 @@ namespace Store_App.Controllers
         [HttpPost]
         public bool Login(LoginRequest request)
         {
-            if ((from p in _personContext.People 
-                 where p.Email == request.Email && p.Password == request.Password
-                 select p).Any()) {
+            Person? user = (from p in _personContext.People
+                            where p.Email == request.Email && p.Password == request.Password
+                            select p).FirstOrDefault();
+            if (user != null)
+            {
+                UserHelper.SetCurrentUser(user);
                 return true;
             }
             return false;
+        }
+
+        [HttpGet]
+        public bool Logout()
+        {
+            UserHelper.SetCurrentUser(null);
+            return true;
         }
 
         [HttpGet("{personId}")]

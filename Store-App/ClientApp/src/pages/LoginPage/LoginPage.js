@@ -10,7 +10,7 @@ export const LoginPage = ({ setLoggedIn }) => {
     const [error, setError] = useState(false);
     const navigate = useNavigate();
 
-    async function login(email, password) {
+    function login(email, password) {
 
         let loginRequest = {
             Email: email,
