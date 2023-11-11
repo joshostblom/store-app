@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { SearchBar } from './SearchBar/SearchBar.js'
 
-export const NavMenu = () => {
+export const NavMenu = (isLoggedIn) => {
 
     const [collapsed, setCollapsed] = useState(false);
 

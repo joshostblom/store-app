@@ -1,6 +1,7 @@
-﻿import { useState } from "react";
+﻿import { useContext, useState } from "react";
 import { Row } from "react-bootstrap";
-import "./LoginPage.css"
+import "./LoginPage.css";
+import { SetLoggedIn } from "../../App.js";
 
 export const LoginPage = () => {
 
@@ -23,7 +24,8 @@ export const LoginPage = () => {
             .then((response) => response.json())
             .then((json) => {
                 setSuccess(json);
-                console.log(json);
+                if (json === true) {
+                }
             });
     }
 
