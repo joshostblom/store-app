@@ -24,7 +24,7 @@ export const NavMenu = ({ isLoggedIn, setLoggedIn }) => {
                         </NavItem>
                         <NavItem>
                             {isLoggedIn ? (
-                                <a class="text-dark nav-link" href="/" onClick={() => setLoggedIn(false)}>Logout</a>
+                                <div class="text-dark nav-link" onClick={() => setLoggedIn(false)}>Logout</div>
                             ) : (
                                 <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
                             )}
