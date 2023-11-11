@@ -10,16 +10,16 @@ import { Container } from 'reactstrap';
 
 export default function App() {
 
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setLoggedIn] = useState(false);
 
     return (
         <div>
-            <NavMenu />
+            <NavMenu isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />
             <Container>
                 <Routes>
                     <Route path="/" element={<DisplayProductBoxes />} />
                     <Route path="/apitest" element={<APITest />} />
-                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
                 </Routes>
             </Container>
         </div>

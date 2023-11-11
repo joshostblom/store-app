@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './NavMenu.css';
 import { SearchBar } from './SearchBar/SearchBar.js'
 
-export const NavMenu = (isLoggedIn) => {
+export const NavMenu = ({ isLoggedIn, setLoggedIn }) => {
 
     const [collapsed, setCollapsed] = useState(false);
 
@@ -23,7 +23,11 @@ export const NavMenu = (isLoggedIn) => {
                             <NavLink tag={Link} className="text-dark" to="/apitest">API Test</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
+                            {isLoggedIn ? (
+                                <a class="text-dark nav-link" href="/" onClick={() => setLoggedIn(false)}>Logout</a>
+                            ) : (
+                                <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
+                            )}
                         </NavItem>
                     </ul>
                 </Collapse>

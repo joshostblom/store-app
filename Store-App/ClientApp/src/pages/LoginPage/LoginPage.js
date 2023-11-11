@@ -1,9 +1,8 @@
-﻿import { useContext, useState } from "react";
+﻿import { useState } from "react";
 import { Row } from "react-bootstrap";
 import "./LoginPage.css";
-import { SetLoggedIn } from "../../App.js";
 
-export const LoginPage = () => {
+export const LoginPage = ({ setLoggedIn }) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -25,6 +24,7 @@ export const LoginPage = () => {
             .then((json) => {
                 setSuccess(json);
                 if (json === true) {
+                    setLoggedIn(true);
                 }
             });
     }
