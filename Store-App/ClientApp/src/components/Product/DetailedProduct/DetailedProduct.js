@@ -4,59 +4,37 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./DetailedProduct.css";
 
-const createMarkup = (text) => {
-    return { __html: text };
-}
-
-//addProduct
 export const DisplayDetailedProduct = () => { 
     const { productId } = useParams();
     console.log("Calling DisplayDetailedProduct....");
-    const [product, setProduct] = useState({});
+    const [detailedProduct, setDetailedProduct] = useState({});
+    const [productById, setProductById] = useState({});
     console.log("Product Id: ", productId)
     
     useEffect(() => {
-        async function fetchData() {
+        async function fetchDetailedProductData() {
             const response = await fetch(`detailedProduct/GetDetailedProduct/${productId}`);
             const data = await response.json();
-            setProduct(data)
-            console.log("In use effect")
+            setDetailedProduct(data)
         }
-        fetchData();  // Fetch product data when the component mounts
+        async function fetchProductData() {
+            const response = await fetch(`product/getProduct/${productId}`);
+            const data = await response.json();
+            setProductById(data)
+        }
+        fetchDetailedProductData();
+        fetchProductData();
     }, [productId]);
 
-    console.log("DetailedProduct: ", product)
-
-    /*
     return (
         <main>
-            {product.length > 0 ? (
-               product.map((product) => (
-                    <div key={product.detailedProductId} className="product">
-                            <div className="product-image">
-                    </div>
-                        <h5 className="product-title">{product.manufacturerInformation}</h5>
-                    </div>
-                ))
-            ) : (
-                <div>Loading...</div>
-            )}
-        </main>
-    );
-};
-
-export default DisplayDetailedProduct;
-*/
-
-    return (
-        <main>
-            {Object.keys(product).length > 0 ? (
+            {Object.keys(detailedProduct).length > 0 ? (
                 <div className="product">
                     <div className="product-image">
-                        <img src={product.imageUrl} alt={product.productName} />
+                        <img src={productById.imageUrl} alt={productById.productName} />
                     </div>
-                    <h5 className="product-title">{product.productName}</h5>
-                    <h6 className="price">{product.price}</h6>
+                    <h5 className="product-description">{detailedProduct.description}</h5>
+                    <h6 className="product-manufacturer-information">{detailedProduct.manufacturerInformation}</h6>
                 </div>
             ) : (
                 <div>Loading...</div>
