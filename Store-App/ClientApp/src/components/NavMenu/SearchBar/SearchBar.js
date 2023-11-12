@@ -12,11 +12,11 @@ export const SearchBar = () => {
             setSuggestions([]);
             return;
         }
-        fetch("https://jsonplaceholder.typicode.com/users")
+        fetch('product/getProducts')
             .then((response) => response.json())
             .then((json) => {
-                const results = json.filter((user) => {
-                    return user && user.name && user.name.toLowerCase().includes(value.toLowerCase())
+                const results = json.filter((product) => {
+                    return product && product.productName && product.productName.toLowerCase().includes(value.toLowerCase())
                 });
                 setSuggestions(results);
             });
@@ -36,10 +36,10 @@ export const SearchBar = () => {
             <div className="suggestions-container">
                 { suggestions?.map((value) => (
                     <div className="suggestion-item" onClick={() => {
-                        setQuery(value.name);
+                        setQuery(value.productName);
                         setSuggestions([]);
                     }
-                    }> <div className="suggestion-text"> {value.name} </div> </div>
+                    }> <div className="suggestion-text"> {value.productName} </div> </div>
                 ))}
             </div>
         </div>
