@@ -1,11 +1,13 @@
 ﻿import { useEffect, useState } from 'react';
-import { AiOutlineSearch } from 'react-icons/ai'
-import "./ProductBox.css"
+import { Link } from 'react-router-dom';
+import { DisplayDetailedProduct } from "../DetailedProduct/DetailedProduct.js";
+import "./ProductBox.css";
 
 export const DisplayProductBoxes = () => {
 
     // Setting the default state to an empty list of products
     const [products, setProducts] = useState([]);
+    const [productId, setProductId] = useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -16,22 +18,25 @@ export const DisplayProductBoxes = () => {
         fetchData();
     }, []);
 
-    //console.log("Products: ", products);
+    console.log("Products: ", products);
 
     return (
         <main>
             {products.length > 0 ? (
                 products.map((product) => (
-                    <div key={product.productId} className="product">
+                    <div key={product.productId} className="product" onClick={() => setProductId(product.productId)}>
+                      <Link to={`detailed-view/${product.productId}`}>
                         <div className="product-image">
                             <img src={product.imageUrl} alt={product.productName} />
                         </div>
-                        <h5 className="product-title">{product.productName}</h5>
+                      </Link>
+                    <h5 className="product-title">{product.productName}</h5>
                     </div>
                 ))
             ) : (
                 <div>Loading...</div>
             )}
+            {productId && <DisplayDetailedProduct productId={productId} />}
         </main>
     );
 }
