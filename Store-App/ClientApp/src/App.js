@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { LoginPage } from './pages/LoginPage/LoginPage';
 import { APITest } from './components/APITest/APITest';
 import { DisplayProductBoxes } from './components/Product/ProductBox/ProductBox';
+import { DisplayDetailedProduct } from "./components/Product/DetailedProduct/DetailedProduct.js";
 import { NavMenu } from './components/NavMenu/NavMenu';
 import { Container } from 'reactstrap';
 
@@ -18,6 +19,7 @@ export default function App() {
             <Container>
                 <Routes>
                     <Route path="/" element={<DisplayProductBoxes />} />
+                    <Route path="/detailed-view/:productId" element={<DisplayDetailedProduct />} />
                     <Route path="/apitest" element={<APITest />} />
                     <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
                 </Routes>
