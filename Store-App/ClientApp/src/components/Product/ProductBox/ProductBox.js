@@ -7,6 +7,7 @@ export const DisplayProductBoxes = () => {
 
     // Setting the default state to an empty list of products
     const [products, setProducts] = useState([]);
+    const [productId, setProductId] = useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -17,40 +18,25 @@ export const DisplayProductBoxes = () => {
         fetchData();
     }, []);
 
-    //console.log("Products: ", products);
-
-    const handleProductClick = async (productId) => {
-        console.log("Product ID: ", productId);
-        fetch(`product/getProduct/${productId}`)
-            .then((response) => response.json())
-            .then((json) => {
-                console.log("Test: ", json);
-                setProductById(json);
-                // call function to display detailed product box
-                DisplayDetailedProduct(productId);
-            })
-            .catch((reason) => {
-                setProductById({ productName: "Request failed! Press f12 to check error." });
-            });
-    }
+    console.log("Products: ", products);
 
     return (
         <main>
             {products.length > 0 ? (
                 products.map((product) => (
-                    <div key={product.productId} className="product" onClick={() => handleProductClick(product.productId)}>
+                    <div key={product.productId} className="product" onClick={() => setProductId(product.productId)}>
                       <Link to={`detailed-view/${product.productId}`}>
                         <div className="product-image">
                             <img src={product.imageUrl} alt={product.productName} />
                         </div>
                       </Link>
                     <h5 className="product-title">{product.productName}</h5>
-                        {/* <div>{productById.productName}</div> */}
                     </div>
                 ))
             ) : (
                 <div>Loading...</div>
             )}
+            {productId && <DisplayDetailedProduct productId={productId} />}
         </main>
     );
 }
