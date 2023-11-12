@@ -1,0 +1,16 @@
+﻿.login-header {
+    width:auto;
+}
+
+.text-field {
+    max-width: 250px;
+}
+
+.error-text {
+    color: red;
+    width: auto;
+}
+
+.btn-primary {
+    max-width: 200px;
+}

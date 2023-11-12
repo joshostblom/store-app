@@ -1,22 +1,27 @@
-import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import { Layout } from './pages/Layout';
 import './custom.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from 'react';
+import { LoginPage } from './pages/LoginPage/LoginPage';
+import { APITest } from './components/APITest/APITest';
+import { DisplayProductBoxes } from './components/Product/ProductBox/ProductBox';
+import { NavMenu } from './components/NavMenu/NavMenu';
+import { Container } from 'reactstrap';
 
-export default class App extends Component {
-  static displayName = App.name;
+export default function App() {
 
-  render() {
+    const [isLoggedIn, setLoggedIn] = useState(false);
+
     return (
-      <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, ...rest } = route;
-            return <Route key={index} {...rest} element={element} />;
-          })}
-        </Routes>
-      </Layout>
+        <div>
+            <NavMenu isLoggedIn={isLoggedIn} setLoggedIn={setLoggedIn} />
+            <Container>
+                <Routes>
+                    <Route path="/" element={<DisplayProductBoxes />} />
+                    <Route path="/apitest" element={<APITest />} />
+                    <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
+                </Routes>
+            </Container>
+        </div>
     );
-  }
 }

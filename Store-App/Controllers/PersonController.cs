@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Store_App.Helpers;
+using Store_App.Models.Authentication;
 using Store_App.Models.DBClasses;
 using System;
 using System.Collections.Generic;
@@ -10,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Store_App.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class PersonController : ControllerBase
     {
@@ -19,6 +21,27 @@ namespace Store_App.Controllers
         public PersonController(StoreAppDbContext personContext)
         {
             _personContext = personContext;
+        }
+
+        [HttpPost]
+        public bool Login(LoginRequest request)
+        {
+            Person? user = (from p in _personContext.People
+                            where p.Email == request.Email && p.Password == request.Password
+                            select p).FirstOrDefault();
+            if (user != null)
+            {
+                UserHelper.SetCurrentUser(user);
+                return true;
+            }
+            return false;
+        }
+
+        [HttpGet]
+        public bool Logout()
+        {
+            UserHelper.SetCurrentUser(null);
+            return true;
         }
 
         [HttpGet("{personId}")]
