@@ -1,5 +1,4 @@
 import React from 'react';
-//import { commerce } from "../../lib/commerce";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./DetailedProduct.css";
