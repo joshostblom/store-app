@@ -8,8 +8,15 @@ const context =  [
     "/weatherforecast",
     "/test",
     "/product",
-    "/detailedProduct",
+    "/detailedproduct",
     "/person",
+    "address",
+    "cart",
+    "category",
+    "payment",
+    "producttocart",
+    "producttocategory",
+    "sale"
 ];
 
 module.exports = function(app) {

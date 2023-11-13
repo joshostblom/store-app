@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Store_App.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]/[action]")]
     [ApiController]
     public class ProductToCategoryController : ControllerBase
     {
