@@ -28,6 +28,19 @@ namespace Store_App.Controllers
             };
         }
 
+        [HttpGet("{query}")]
+        public IEnumerable<Product> SearchProducts(string query)
+        {
+            if (_productContext.Products == null)
+            {
+                return new List<Product>();
+            }
+
+            IEnumerable<Product> products = _productContext.Products.ToList().Where(x => x.ProductName.ToLower().Contains(query.ToLower()));
+
+            return products;
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
