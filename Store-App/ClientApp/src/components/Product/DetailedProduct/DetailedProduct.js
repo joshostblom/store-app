@@ -12,7 +12,7 @@ export const DisplayDetailedProduct = () => {
     
     useEffect(() => {
         async function fetchDetailedProductData() {
-            const response = await fetch(`detailedProduct/GetDetailedProduct/${productId}`);
+            const response = await fetch(`detailedproduct/GetDetailedProduct/${productId}`);
             const data = await response.json();
             setDetailedProduct(data)
         }
