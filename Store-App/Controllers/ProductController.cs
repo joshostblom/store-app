@@ -42,13 +42,17 @@ namespace Store_App.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public IEnumerable<Models.DomainClasses.Product> GetProducts()
         {
-            if(_productContext.Products == null)
+            var products = new List<Models.DomainClasses.Product>();
+
+            foreach(Product product in _productContext.Products)
             {
-                return NotFound();
+                var sale = _productContext.Sales.Find(product.SaleId);
+                products.Add(product.ToDomain(sale));
             }
-            return await _productContext.Products.ToListAsync();
+
+            return products;
         }
 
         [HttpGet("{id}")]
