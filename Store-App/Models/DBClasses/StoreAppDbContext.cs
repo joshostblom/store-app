@@ -101,9 +101,6 @@ namespace Store_App.Models.DBClasses
                     .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.HasOne(o => o.Product).WithOne()
-                    .HasForeignKey<Product>(o => o.ProductId);
-
                 entity.HasOne(d => d.Product).WithMany(p => p.DetailedProducts)
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
