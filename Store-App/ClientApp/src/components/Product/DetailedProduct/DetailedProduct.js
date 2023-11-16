@@ -26,19 +26,34 @@ export const DisplayDetailedProduct = () => {
     }, [productId]);
 
     return (
-        <main>
-            {Object.keys(detailedProduct).length > 0 ? (
-                <div className="product">
-                    <div className="product-image">
-                        <img src={productById.imageUrl} alt={productById.productName} />
-                    </div>
-                    <h5 className="product-description">{detailedProduct.description}</h5>
-                    <h6 className="product-manufacturer-information">{detailedProduct.manufacturerInformation}</h6>
-                </div>
-            ) : (
-                <div>Loading...</div>
-            )}
-        </main>
+        <div className="outer-container" style={{ paddingTop: '200px' }}>
+            <table style={{ width: '100%', marginTop: '10px', borderCollapse: 'collapse' }}>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <img src={productById.imageUrl} alt={productById.productName} style={{ maxWidth: '20%' }}/>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h6 className="product-text">{detailedProduct.description}</h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h6 className="product-text">{detailedProduct.manufacturerInformation}</h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <h6 className="product-text" step=".01"><span>&#36;</span>{productById.price}</h6>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     );
 };
 
