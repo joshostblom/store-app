@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Data;
-using System.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Store_App.Models.DBClasses;
 
@@ -42,28 +39,30 @@ namespace Store_App.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public IEnumerable<Product> GetProducts()
         {
-            if(_productContext.Products == null)
+            var products = new List<Product>();
+
+            foreach(Product product in _productContext.Products)
             {
-                return NotFound();
+                var returnProduct = product;
+                returnProduct.Sale = _productContext.Sales.Find(product.SaleId);
+                products.Add(returnProduct);
             }
-            return await _productContext.Products.ToListAsync();
+
+            return products;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public Product? GetProduct(int id)
         {
-            if (_productContext.Products == null)
-            {
-                return NotFound();
-            }
-            var product = await _productContext.Products.FindAsync(id);
+            var product = _productContext.Products.Find(id);
 
-            if (product == null)
+            if (product != null)
             {
-                return NotFound();
+                product.Sale = _productContext.Sales.Find(product.SaleId);
             }
+
             return product;
         }
 
