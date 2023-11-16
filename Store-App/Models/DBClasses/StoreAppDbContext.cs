@@ -37,7 +37,6 @@ namespace Store_App.Models.DBClasses
         public virtual DbSet<Sale> Sales { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https: //go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
             => optionsBuilder.UseSqlServer(ConfigConnectionHelper.GetConnectionString());
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -101,6 +100,9 @@ namespace Store_App.Models.DBClasses
                 entity.Property(e => e.Sku)
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                entity.HasOne(o => o.Product).WithOne()
+                    .HasForeignKey<Product>(o => o.ProductId);
 
                 entity.HasOne(d => d.Product).WithMany(p => p.DetailedProducts)
                     .HasForeignKey(d => d.ProductId)

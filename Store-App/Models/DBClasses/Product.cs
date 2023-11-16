@@ -1,8 +1,4 @@
-﻿using Store_App.Models.DomainClasses;
-using System;
-using System.Collections.Generic;
-
-namespace Store_App.Models.DBClasses
+﻿namespace Store_App.Models.DBClasses
 {
     public partial class Product
     {
@@ -16,22 +12,12 @@ namespace Store_App.Models.DBClasses
 
         public int? SaleId { get; set; }
 
+        public Sale? Sale { get; set; }
+
         public virtual ICollection<DetailedProduct> DetailedProducts { get; set; } = new List<DetailedProduct>();
 
         public virtual ICollection<ProductToCart> ProductToCarts { get; set; } = new List<ProductToCart>();
 
         public virtual ICollection<ProductToCategory> ProductToCategories { get; set; } = new List<ProductToCategory>();
-
-        public DomainClasses.Product ToDomain(Sale? sale)
-        {
-            return new DomainClasses.Product()
-            {
-                ProductId = ProductId,
-                ProductName = ProductName,
-                Price = Price,
-                ImageUrl = ImageUrl,
-                Sale = sale?.ToDomain(),
-            };
-        }
     }
 }
