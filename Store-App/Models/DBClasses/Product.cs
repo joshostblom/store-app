@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Store_App.Models.DBClasses
+﻿namespace Store_App.Models.DBClasses
 {
     public partial class Product
     {
@@ -11,9 +8,11 @@ namespace Store_App.Models.DBClasses
 
         public double? Price { get; set; }
 
-    public string? ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
 
         public int? SaleId { get; set; }
+
+        public Sale? Sale { get; set; }
 
         public virtual ICollection<DetailedProduct> DetailedProducts { get; set; } = new List<DetailedProduct>();
 
