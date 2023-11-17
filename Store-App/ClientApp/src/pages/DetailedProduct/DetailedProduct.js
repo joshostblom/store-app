@@ -22,10 +22,9 @@ export const DisplayDetailedProduct = () => {
                 <tbody>
                     <tr>
                         <td>
-                            <ProductBox product={productById}></ProductBox>
-                            {/*<div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <img src={productById.imageUrl} alt={productById.productName} style={{ maxWidth: '20%' }}/>
-                            </div>*/}
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <ProductBox product={productById}></ProductBox>
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -36,11 +35,6 @@ export const DisplayDetailedProduct = () => {
                     <tr>
                         <td>
                             <h6 className="product-text">{productById?.manufacturerInformation}</h6>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h6 className="product-text" step=".01"><span>&#36;</span>{productById?.price}</h6>
                         </td>
                     </tr>
                 </tbody>
