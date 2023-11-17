@@ -6,22 +6,15 @@ import "./DetailedProduct.css";
 export const DisplayDetailedProduct = () => { 
     const { productId } = useParams();
     console.log("Calling DisplayDetailedProduct....");
-    const [detailedProduct, setDetailedProduct] = useState({});
     const [productById, setProductById] = useState({});
     console.log("Product Id: ", productId)
     
     useEffect(() => {
-        async function fetchDetailedProductData() {
-            const response = await fetch(`detailedproduct/GetDetailedProduct/${productId}`);
-            const data = await response.json();
-            setDetailedProduct(data)
-        }
         async function fetchProductData() {
             const response = await fetch(`product/getProduct/${productId}`);
             const data = await response.json();
             setProductById(data)
         }
-        fetchDetailedProductData();
         fetchProductData();
     }, [productId]);
 
@@ -38,12 +31,12 @@ export const DisplayDetailedProduct = () => {
                     </tr>
                     <tr>
                         <td>
-                            <h6 className="product-text">{detailedProduct.description}</h6>
+                            <h6 className="product-text">{productById.description}</h6>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h6 className="product-text">{detailedProduct.manufacturerInformation}</h6>
+                            <h6 className="product-text">{productById.manufacturerInformation}</h6>
                         </td>
                     </tr>
                     <tr>

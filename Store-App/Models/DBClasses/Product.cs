@@ -14,7 +14,21 @@
 
         public Sale? Sale { get; set; }
 
-        public virtual ICollection<DetailedProduct> DetailedProducts { get; set; } = new List<DetailedProduct>();
+        public string Sku { get; set; } = null!;
+
+        public double Rating { get; set; }
+
+        public string? Descript { get; set; }
+
+        public string? ManufacturerInformation { get; set; }
+
+        public double? ProdHeight { get; set; }
+
+        public double? ProdWidth { get; set; }
+
+        public double? ProdLength { get; set; }
+
+        public double? ProdWeight { get; set; }
 
         public virtual ICollection<ProductToCart> ProductToCarts { get; set; } = new List<ProductToCart>();
 
