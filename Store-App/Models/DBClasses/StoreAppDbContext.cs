@@ -22,8 +22,6 @@ namespace Store_App.Models.DBClasses
 
         public virtual DbSet<Category> Categories { get; set; }
 
-        public virtual DbSet<DetailedProduct> DetailedProducts { get; set; }
-
         public virtual DbSet<Payment> Payments { get; set; }
 
         public virtual DbSet<Person> People { get; set; }
