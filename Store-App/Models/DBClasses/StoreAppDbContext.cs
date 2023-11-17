@@ -150,7 +150,7 @@ namespace Store_App.Models.DBClasses
                     .HasMaxLength(255)
                     .IsUnicode(false);
                 entity.Property(e => e.SaleId).HasColumnName("SaleID");
-                entity.Property(e => e.Description)
+                entity.Property(e => e.Descript)
                     .HasMaxLength(255)
                     .IsUnicode(false);
                 entity.Property(e => e.ManufacturerInformation)

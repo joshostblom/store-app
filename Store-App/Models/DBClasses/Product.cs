@@ -12,11 +12,13 @@
 
         public int? SaleId { get; set; }
 
+        public Sale? Sale { get; set; }
+
         public string Sku { get; set; } = null!;
 
         public double Rating { get; set; }
 
-        public string? Description { get; set; }
+        public string? Descript { get; set; }
 
         public string? ManufacturerInformation { get; set; }
 
