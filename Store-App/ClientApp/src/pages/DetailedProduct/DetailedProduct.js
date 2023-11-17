@@ -31,7 +31,7 @@ export const DisplayDetailedProduct = () => {
                     </tr>
                     <tr>
                         <td>
-                            <h6 className="product-text">{productById.description}</h6>
+                            <h6 className="product-text">{productById.descript}</h6>
                         </td>
                     </tr>
                     <tr>
