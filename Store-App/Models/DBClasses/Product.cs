@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Store_App.Models.DBClasses
+﻿namespace Store_App.Models.DBClasses
 {
     public partial class Product
     {
