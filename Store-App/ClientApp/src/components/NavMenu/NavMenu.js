@@ -6,8 +6,10 @@ import { SearchBar } from './SearchBar/SearchBar.js'
 
 export const NavMenu = ({ isLoggedIn, setLoggedIn }) => {
 
+    //Set a collapsed state
     const [collapsed, setCollapsed] = useState(false);
 
+    //Call to the controller to logout
     function logout() {
         fetch('person/logout')
             .then((response) => response.json())

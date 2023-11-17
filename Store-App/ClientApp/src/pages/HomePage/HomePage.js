@@ -4,8 +4,10 @@ import "./HomePage.css"
 
 export const HomePage = () => {
 
+    //Create a state for the products
     const [products, setProducts] = useState([]);
 
+    //Get the products from the controller and set state
     useEffect(() => {
         fetch('product/getProducts')
             .then((response) => response.json())
@@ -17,6 +19,7 @@ export const HomePage = () => {
     return (
         <div className="product-container">
             {products.length > 0 ?
+                //Put each product into a product box
                 products?.map((product) => (
                     <ProductBox product={product}></ProductBox>
                 ))

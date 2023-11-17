@@ -12,8 +12,6 @@
 
         public int? SaleId { get; set; }
 
-        public Sale? Sale { get; set; }
-
         public string Sku { get; set; } = null!;
 
         public double Rating { get; set; }
