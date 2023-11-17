@@ -10,13 +10,13 @@ const context =  [
     "/product",
     "/detailedproduct",
     "/person",
-    "address",
-    "cart",
-    "category",
-    "payment",
-    "producttocart",
-    "producttocategory",
-    "sale"
+    "/address",
+    "/cart",
+    "/category",
+    "/payment",
+    "/producttocart",
+    "/producttocategory",
+    "/sale"
 ];
 
 module.exports = function(app) {

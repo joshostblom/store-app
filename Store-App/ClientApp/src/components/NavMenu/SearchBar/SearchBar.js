@@ -6,10 +6,14 @@ import "./SearchBar.css"
 
 export const SearchBar = () => {
 
+    //Create query and suggestions state
     const [query, setQuery] = useState("");
     const [suggestions, setSuggestions] = useState([]);
+
+    //Create nav state for navigating to the search page
     const navigate = useNavigate();
 
+    //Get the suggestions from the controller with the given search value
     const fetchData = (value) => {
         if (value === "") {
             setSuggestions([]);
@@ -27,6 +31,7 @@ export const SearchBar = () => {
         fetchData(value)
     }
 
+    //Navigate to search page with input
     const search = (input) => {
         setSuggestions([]);
         navigate(`search/${input}`)

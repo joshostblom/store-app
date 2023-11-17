@@ -2,20 +2,18 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./DetailedProduct.css";
+import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
 
-export const DisplayDetailedProduct = () => { 
+export const DisplayDetailedProduct = () => {
     const { productId } = useParams();
-    console.log("Calling DisplayDetailedProduct....");
     const [productById, setProductById] = useState({});
-    console.log("Product Id: ", productId)
-    
+
     useEffect(() => {
-        async function fetchProductData() {
-            const response = await fetch(`product/getProduct/${productId}`);
-            const data = await response.json();
-            setProductById(data)
-        }
-        fetchProductData();
+        fetch(`product/getProduct/${productId}`)
+            .then((response) => response.json())
+            .then((json) => {
+                setProductById(json);
+            });
     }, [productId]);
 
     return (
@@ -25,23 +23,18 @@ export const DisplayDetailedProduct = () => {
                     <tr>
                         <td>
                             <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <img src={productById.imageUrl} alt={productById.productName} style={{ maxWidth: '20%' }}/>
+                                <ProductBox product={productById}></ProductBox>
                             </div>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h6 className="product-text">{productById.descript}</h6>
+                            <h6 className="product-text">{productById?.descript}</h6>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <h6 className="product-text">{productById.manufacturerInformation}</h6>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h6 className="product-text" step=".01"><span>&#36;</span>{productById.price}</h6>
+                            <h6 className="product-text">{productById?.manufacturerInformation}</h6>
                         </td>
                     </tr>
                 </tbody>
@@ -49,5 +42,4 @@ export const DisplayDetailedProduct = () => {
         </div>
     );
 };
-
-export default DisplayDetailedProduct;         
+export default DisplayDetailedProduct;

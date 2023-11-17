@@ -39,28 +39,20 @@ namespace Store_App.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Product> GetProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
-            var products = new List<Product>();
-
-            foreach(Product product in _productContext.Products)
-            {
-                var returnProduct = product;
-                returnProduct.Sale = _productContext.Sales.Find(product.SaleId);
-                products.Add(returnProduct);
-            }
-
+            var products = await _productContext.Products.ToListAsync();
             return products;
         }
 
-        [HttpGet("{id}")]
-        public Product? GetProduct(int id)
+        [HttpGet("{productId}")]
+        public async Task<ActionResult<Product>> GetProduct(int productId)
         {
-            var product = _productContext.Products.Find(id);
+            var product = await _productContext.Products.FindAsync(productId);
 
-            if (product != null)
+            if (product == null)
             {
-                product.Sale = _productContext.Sales.Find(product.SaleId);
+                return NotFound();
             }
 
             return product;
