@@ -26,7 +26,8 @@ VALUES ('2023-01-01 00:00:00', '2023-02-28 23:59:59', 10.00),
 -- Insert dummy data into Product table
 INSERT INTO Product (ProductName, Price, ImageURL, SaleID, Sku, Rating, Descript, ManufacturerInformation, ProdHeight, ProdWidth, ProdLength, ProdWeight)
 VALUES ('Product 1', 50.00, NULL, 1, 'SKU123', 4.5, 'Description for Product 1', 'Manufacturer Info 1', 5.0, 3.0, 6.0, 2.0),
-       ('Product 2', 75.00, NULL, 2, 'SKU456', 4.2, 'Description for Product 2', 'Manufacturer Info 2', 4.5, 2.5, 5.5, 1.8);
+       ('Product 2', 75.00, NULL, 2, 'SKU456', 4.2, 'Description for Product 2', 'Manufacturer Info 2', 4.5, 2.5, 5.5, 1.8),
+       ('PlayStation 5', 69.00, CAST('https://m.media-amazon.com/images/I/41sN+-1hRsL._AC_UF894,1000_QL80_.jpg' AS varbinary(max)), 1, 'SKU567', 5, 'A Playstation', 'Made by PlayStation', 4.0, 3.5, 7.0, 6.0);
 
 -- Insert dummy data into ProductToCart table
 INSERT INTO ProductToCart (CartID, ProductID)
