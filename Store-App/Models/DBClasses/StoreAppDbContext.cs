@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Store_App.Helpers;
 
 namespace Store_App.Models.DBClasses
@@ -79,32 +77,6 @@ namespace Store_App.Models.DBClasses
                     .IsUnicode(false);
             });
 
-            modelBuilder.Entity<DetailedProduct>(entity =>
-            {
-                entity.HasKey(e => e.DetailedProductId).HasName("PK__Detailed__EED9C0701EEB5C9A");
-
-                entity.ToTable("DetailedProduct");
-
-                entity.HasIndex(e => e.Sku, "UQ__Detailed__CA1FD3C5D0556EDC").IsUnique();
-
-                entity.Property(e => e.DetailedProductId).HasColumnName("DetailedProductID");
-                entity.Property(e => e.Description)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-                entity.Property(e => e.ManufacturerInformation)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
-                entity.Property(e => e.Sku)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
-
-                entity.HasOne(d => d.Product).WithMany(p => p.DetailedProducts)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__DetailedP__Produ__498EEC8D");
-            });
-
             modelBuilder.Entity<Payment>(entity =>
             {
                 entity.HasKey(e => e.PaymentId).HasName("PK__Payment__9B556A585A8C6E64");
@@ -171,14 +143,24 @@ namespace Store_App.Models.DBClasses
 
                 entity.ToTable("Product");
 
-            entity.Property(e => e.ProductId).HasColumnName("ProductID");
-            entity.Property(e => e.ImageUrl).HasColumnName("ImageURL")
-            .HasConversion<byte[]>();
-            entity.Property(e => e.ProductName)
-                .HasMaxLength(255)
-                .IsUnicode(false);
-            entity.Property(e => e.SaleId).HasColumnName("SaleID");
-        });
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.ImageUrl).HasColumnName("ImageURL")
+                .HasConversion<byte[]>();
+                entity.Property(e => e.ProductName)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.SaleId).HasColumnName("SaleID");
+                entity.Property(e => e.Description)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.ManufacturerInformation)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+                entity.Property(e => e.Sku)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+            });
 
             modelBuilder.Entity<ProductToCart>(entity =>
             {
