@@ -21,7 +21,7 @@ export default function App() {
                 <Routes>
                     <Route path="/" element={<HomePage />} />
                     <Route path="/detailed-view/:productId" element={<DisplayDetailedProduct />} />
-                    <Route path="/search/:query" element={<SearchPage />} />
+                    <Route path="/search" element={<SearchPage />} />
                     <Route path="/apitest" element={<APITest />} />
                     <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
                 </Routes>

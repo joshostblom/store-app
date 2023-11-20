@@ -43,19 +43,23 @@ export const SearchBar = () => {
     }
 
     //Navigate to search page with input
-    const search = (input) => {
+    const search = (input, isCategories) => {
         clearSuggestions();
-        navigate(`search/${input}`)
+        const searchObject = {
+            input: input,
+            isCategories: isCategories,
+        }
+        navigate(`search/${JSON.stringify(searchObject)}`)
     }
 
     return (
         <div className="search">
             <div className="search-bar-container">
-                <AiOutlineSearch className="search-icon" onClick={() => search(query) } />
+                <AiOutlineSearch className="search-icon" onClick={() => search(query, false) } />
                 <input type="text"
                     value={query}
                     placeholder="Search for categories or items"
-                    onKeyDown={(key) => { if (key.key === 'Enter') { search(query); } }}
+                    onKeyDown={(key) => { if (key.key === 'Enter') { search(query, false); } }}
                     onChange={(e) => handleChange(e.target.value)} />
                 <MdClear className="clear-icon" onClick={() => { setQuery(""); clearSuggestions(); }} />
             </div>
@@ -66,7 +70,7 @@ export const SearchBar = () => {
                 {categorySuggestions?.map((value) => (
                     <div className="suggestion-item" onClick={() => {
                         setQuery(value.name);
-                        search(value.name);
+                        search(value.categoryId, true);
                     }
                     }> <div className="suggestion-text"> {value.name} </div> </div>
                 ))}
@@ -76,7 +80,7 @@ export const SearchBar = () => {
                 {productSuggestions?.map((value) => (
                     <div className="suggestion-item" onClick={() => {
                         setQuery(value.productName);
-                        search(value.productName);
+                        search(value.productName, false);
                     }
                     }> <div className="suggestion-text"> {value.productName} </div> </div>
                 ))}
