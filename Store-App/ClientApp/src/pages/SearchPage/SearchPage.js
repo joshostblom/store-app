@@ -1,15 +1,14 @@
 ﻿import { useEffect, useState } from "react"
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useLocation } from "react-router-dom";
 import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
 
 export const SearchPage = () => {
 
     //Get the query from the url and create a products state
-    let { searchParams, setSearchParams } = useSearchParams();
+    const [ searchParams, setSearchParams ] = useSearchParams();
     const [products, setProducts] = useState(null);
-
     const productQuery = searchParams.get('product');
-    //const categoryQuery = searchParams.get("product");
+    const categoryQuery = searchParams.get("product");
 
     //Get the products from the controller and set the products state
     useEffect(() => {
