@@ -8,7 +8,8 @@ export const SearchBar = () => {
 
     //Create query and suggestions state
     const [query, setQuery] = useState("");
-    const [suggestions, setSuggestions] = useState([]);
+    const [productSuggestions, setProductSuggestions] = useState([]);
+    const [categorySuggestions, setCategorySuggestions] = useState([]);
 
     //Create nav state for navigating to the search page
     const navigate = useNavigate();
@@ -16,14 +17,24 @@ export const SearchBar = () => {
     //Get the suggestions from the controller with the given search value
     const fetchData = (value) => {
         if (value === "") {
-            setSuggestions([]);
+            clearSuggestions();
         } else {
             fetch(`product/searchProducts/${value}`)
                 .then((response) => response.json())
                 .then((json) => {
-                    setSuggestions(json);
+                    setProductSuggestions(json);
+                });
+            fetch(`category/searchCategories/${value}`)
+                .then((response) => response.json())
+                .then((json) => {
+                    setCategorySuggestions(json);
                 });
         }
+    }
+
+    const clearSuggestions = () => {
+        setProductSuggestions([]);
+        setCategorySuggestions([]);
     }
 
     const handleChange = (value) => {
@@ -33,7 +44,7 @@ export const SearchBar = () => {
 
     //Navigate to search page with input
     const search = (input) => {
-        setSuggestions([]);
+        clearSuggestions();
         navigate(`search/${input}`)
     }
 
@@ -46,10 +57,23 @@ export const SearchBar = () => {
                     placeholder="Search for categories or items"
                     onKeyDown={(key) => { if (key.key === 'Enter') { search(query); } }}
                     onChange={(e) => handleChange(e.target.value)} />
-                <MdClear className="clear-icon" onClick={() => { setQuery(""); setSuggestions([]); } } />
+                <MdClear className="clear-icon" onClick={() => { setQuery(""); clearSuggestions(); }} />
             </div>
             <div className="suggestions-container">
-                {suggestions?.map((value) => (
+                {categorySuggestions.length > 0 && (
+                    <div className="suggestions-header">Categories</div>
+                )}
+                {categorySuggestions?.map((value) => (
+                    <div className="suggestion-item" onClick={() => {
+                        setQuery(value.name);
+                        search(value.name);
+                    }
+                    }> <div className="suggestion-text"> {value.name} </div> </div>
+                ))}
+                {productSuggestions.length > 0 && (
+                    <div className="suggestions-header">Products</div>
+                )}
+                {productSuggestions?.map((value) => (
                     <div className="suggestion-item" onClick={() => {
                         setQuery(value.productName);
                         search(value.productName);

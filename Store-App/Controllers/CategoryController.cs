@@ -21,6 +21,19 @@ namespace Store_App.Controllers
             _categoryContext = categoryContext;
         }
 
+        [HttpGet("{query}")]
+        public IEnumerable<Category> SearchCategories(string query)
+        {
+            if (_categoryContext.Products == null)
+            {
+                return new List<Category>();
+            }
+
+            IEnumerable<Category> categories = _categoryContext.Categories.ToList().Where(x => x.Name.ToLower().Contains(query.ToLower()));
+
+            return categories;
+        }
+
         [HttpGet("{categoryId}")]
         public async Task<ActionResult<Category>> GetCategory(int categoryId)
         {
