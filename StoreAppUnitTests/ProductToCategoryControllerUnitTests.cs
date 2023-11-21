@@ -20,7 +20,7 @@ namespace ProductToCategoryControllerUnitTests
         {
             // Arrange
             var categoryId = 1;
-            var mockDbContext = MockDbContext(); // Ensure that mock data is set up correctly
+            var mockDbContext = MockDbContext();
 
             var controller = new ProductToCategoryController(mockDbContext);
 
@@ -107,14 +107,13 @@ namespace ProductToCategoryControllerUnitTests
         public async Task RemoveProductFromCategory_ReturnsOkResponse()
         {
             // Arrange
-            var dbContext = MockDbContext();  // Ensure that this method returns a properly mocked DbContext
+            var dbContext = MockDbContext();
             var controller = new ProductToCategoryController(dbContext);
 
             // Act
             var result = await controller.RemoveProductFromCategory(1, 1);
 
             // Assert
-            // Check if the result is either an OkResult or NotFoundObjectResult
             Assert.IsTrue(result is OkResult || result is NotFoundObjectResult);
 
             // If OkResult, check if the product is no longer associated with the category in the database

@@ -26,7 +26,7 @@ namespace Store_App.Controllers
         {
             if (_context.ProductToCategories == null)
             {
-                return NotFound(); // Return NotFoundResult without a specific message
+                return NotFound();
             }
 
             var productsInCategory = await _context.ProductToCategories

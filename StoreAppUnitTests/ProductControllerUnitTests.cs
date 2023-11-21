@@ -70,7 +70,7 @@ namespace ProductControllerUnitTests
             // Check if the result is NotFound
             if (result.Result is NotFoundResult)
             {
-                Assert.IsNull(result.Value); // Ensure Value is null when product is not found
+                Assert.IsNull(result.Value);
             }
             else
             {
@@ -95,7 +95,6 @@ namespace ProductControllerUnitTests
             {
                 new Product { ProductId = 1, ProductName = "TestProduct1" },
                 new Product { ProductId = 2, ProductName = "TestProduct2" },
-                // Add more sample data as needed
             }.AsQueryable();
 
             var mockSet = new Mock<DbSet<Product>>();
@@ -111,7 +110,7 @@ namespace ProductControllerUnitTests
             return mockSet.Object;
         }
 
-        // Add these classes to support asynchronous queries in the mock
+        // Classes to support asynchronous queries in the mock
         public class TestAsyncEnumerator<T> : IAsyncEnumerator<T>
         {
             private readonly IEnumerator<T> _enumerator;

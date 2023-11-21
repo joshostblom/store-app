@@ -64,8 +64,6 @@ namespace CategoryControllerUnitTests
             dbContextMock.Setup(x => x.Categories.Add(It.IsAny<Category>()))
                 .Callback((Category addedCategory) =>
                 {
-                    // Ensure that the addedCategory is not null and set its properties if needed
-                    // For example: addedCategory.CategoryId = 1;
                     Assert.IsNotNull(addedCategory);
                 });
 
@@ -91,10 +89,9 @@ namespace CategoryControllerUnitTests
             {
                 var controller = new CategoryController(dbContext);
 
-                // Add a category to the database
                 var category = new Category { Name = "TestCategory" };
                 dbContext.Categories.Add(category);
-                await dbContext.SaveChangesAsync(); // SaveChanges to get the generated CategoryId
+                await dbContext.SaveChangesAsync();
 
                 // Act
                 var result = await controller.UpdateCategory(category.CategoryId, category);
