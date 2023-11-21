@@ -26,8 +26,13 @@ namespace Store_App.Controllers
         [HttpGet]
         public async Task<ActionResult<Address>> GetAddressUsingPersonId()
         {
-            Person person = UserHelper.GetCurrentUser();
-            Address address = await _addressContext.Addresses.FindAsync(person.getAddressId());
+            Person? person = UserHelper.GetCurrentUser();
+            Address? address = null;
+
+            if (person != null)
+            {
+                address = await _addressContext.Addresses.FindAsync(person.getAddressId());
+            }
             if (address == null)
             {
                 return NotFound();
