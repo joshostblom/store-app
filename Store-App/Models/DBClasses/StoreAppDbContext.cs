@@ -75,6 +75,12 @@ namespace Store_App.Models.DBClasses
                 entity.Property(e => e.Name)
                     .HasMaxLength(255)
                     .IsUnicode(false);
+
+                modelBuilder.Entity<Category>()
+                    .Property(c => c.CategoryId)
+                    .ValueGeneratedOnAdd(); // Configure CategoryId as identity column
+
+                base.OnModelCreating(modelBuilder);
             });
 
             modelBuilder.Entity<Payment>(entity =>

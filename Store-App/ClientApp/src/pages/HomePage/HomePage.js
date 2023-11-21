@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
+import { Link } from 'react-router-dom';
 
 export const HomePage = () => {
 
@@ -14,7 +15,6 @@ export const HomePage = () => {
                 setProducts(json);
             });
     }, []);
-
     return (
         <div className="product-container">
             {products.length > 0 ?
@@ -23,6 +23,11 @@ export const HomePage = () => {
                     <ProductBox product={product}></ProductBox>
                 ))
                 : <div>Loading...</div>}
+            <div style={{ display: 'flex', justifyContent: 'right' }}>
+                <Link to={`/payment`}>
+                    <button className="btn-primary">Proceed to Checkout</button>
+                </Link>
+            </div>
         </div>
     );
 }

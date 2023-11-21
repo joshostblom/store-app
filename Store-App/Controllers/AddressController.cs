@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Store_App.Helpers;
 using Store_App.Models.DBClasses;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Store_App.Helpers;
 
 namespace Store_App.Controllers
 {
@@ -18,7 +20,19 @@ namespace Store_App.Controllers
 
         public AddressController(StoreAppDbContext addressContext)
         {
-            _addressContext = addressContext;
+            _addressContext = addressContext ?? throw new ArgumentNullException(nameof(addressContext));
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Address>> GetAddressUsingPersonId()
+        {
+            Person person = UserHelper.GetCurrentUser();
+            Address address = await _addressContext.Addresses.FindAsync(person.getAddressId());
+            if (address == null)
+            {
+                return NotFound();
+            }
+            return address;
         }
 
         [HttpGet("{addressId}")]
@@ -46,9 +60,16 @@ namespace Store_App.Controllers
         [HttpPut("{addressId}")]
         public async Task<ActionResult> UpdateAddress(int addressId, Address address)
         {
-            if (addressId != address.AddressId)
+            if (addressId != address.AddressId || address == null)
             {
                 return BadRequest();
+            }
+
+            // Add a null check for the _addressContext
+            if (_addressContext == null)
+            {
+                // Handle the case where _addressContext is null, e.g., log an error
+                return StatusCode(500, "Internal Server Error");
             }
 
             _addressContext.Entry(address).State = EntityState.Modified;
@@ -84,7 +105,8 @@ namespace Store_App.Controllers
         [HttpGet("{addressId}/customer")]
         public async Task<ActionResult<Person>> GetCustomerByAddress(int addressId)
         {
-            var customer = await _addressContext.People.FirstOrDefaultAsync(c => c.AddressId == addressId);
+            var customer = await _addressContext.People
+                .FirstOrDefaultAsync(c => c.AddressId == addressId);
 
             if (customer == null)
             {

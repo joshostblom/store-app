@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Store_App.Models.DBClasses;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Store_App.Helpers;
 
 namespace Store_App.Controllers
 {
@@ -19,6 +22,18 @@ namespace Store_App.Controllers
         public CartController(StoreAppDbContext cartContext)
         {
             _cartContext = cartContext;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Cart>> GetCartUsingPersonId()
+        {
+            Person person = UserHelper.GetCurrentUser();
+            Cart cart = await _cartContext.Carts.FindAsync(person.getCartId());
+            if (cart == null)
+            {
+                return NotFound();
+            }
+            return cart;
         }
 
         [HttpGet("{cartId}")]
@@ -46,12 +61,24 @@ namespace Store_App.Controllers
         [HttpPut("{cartId}")]
         public async Task<ActionResult> UpdateCart(int cartId, Cart cart)
         {
+            // Check if the provided cartId matches the ID in the cart object
             if (cartId != cart.CartId)
             {
-                return BadRequest();
+                return BadRequest(); // Return BadRequestResult for mismatched IDs
             }
 
-            _cartContext.Entry(cart).State = EntityState.Modified;
+            var existingCart = await _cartContext.Carts.FindAsync(cartId);
+
+            if (existingCart == null)
+            {
+                return NotFound();
+            }
+
+            // Update the properties of existingCart
+            existingCart.Total = cart.Total;
+
+            // Set the entity state to Modified
+            _cartContext.Entry(existingCart).State = EntityState.Modified;
 
             try
             {
@@ -65,6 +92,7 @@ namespace Store_App.Controllers
             return Ok();
         }
 
+
         [HttpDelete("{cartId}")]
         public async Task<ActionResult> DeleteCart(int cartId)
         {
@@ -72,13 +100,13 @@ namespace Store_App.Controllers
 
             if (cart == null)
             {
-                return NotFound();
+                return NotFound(); // Return NotFoundResult if the cart doesn't exist
             }
 
             _cartContext.Carts.Remove(cart);
             await _cartContext.SaveChangesAsync();
 
-            return Ok();
+            return Ok(); // Return OkResult upon successful deletion
         }
     }
 }

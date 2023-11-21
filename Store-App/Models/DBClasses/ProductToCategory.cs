@@ -7,7 +7,7 @@ namespace Store_App.Models.DBClasses
     {
         public int ProdToCatId { get; set; }
 
-        public int? CategoryId { get; set; }
+        public int CategoryId { get; set; }
 
         public int? ProductId { get; set; }
     }

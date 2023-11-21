@@ -9,6 +9,7 @@ import { SearchPage } from './pages/SearchPage/SearchPage';
 import { NavMenu } from './components/NavMenu/NavMenu';
 import { Container } from 'reactstrap';
 import { HomePage } from './pages/HomePage/HomePage';
+import { PaymentPage } from './pages/PaymentPage/PaymentPage'
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
                     <Route path="/search" element={<SearchPage />} />
                     <Route path="/apitest" element={<APITest />} />
                     <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
+                    <Route path="/payment" element={<PaymentPage setLoggedIn={setLoggedIn} />} />
                 </Routes>
             </Container>
         </div>
