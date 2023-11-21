@@ -45,10 +45,12 @@ export const SearchBar = () => {
     //Navigate to search page with input
     const search = (input, isCategories) => {
         clearSuggestions();
-        const searchObject = {
-            input: input,
-            isCategories: isCategories,
-        }
+        navigate({
+            pathname: "search",
+            search: createSearchParams({
+
+            }).toString()
+        });
         navigate(`search/${JSON.stringify(searchObject)}`)
     }
 
