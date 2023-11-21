@@ -37,10 +37,22 @@ namespace Store_App.Controllers
         [HttpPost]
         public async Task<ActionResult<Payment>> CreatePayment(Payment payment)
         {
-            _paymentContext.Payments.Add(payment);
-            await _paymentContext.SaveChangesAsync();
+            try
+            {
+                if (payment == null)
+                {
+                    return BadRequest("Payment object is null");
+                }
 
-            return CreatedAtAction(nameof(GetPayment), new { paymentId = payment.PaymentId }, payment);
+                _paymentContext.Payments.Add(payment);
+                await _paymentContext.SaveChangesAsync();
+
+                return CreatedAtAction(nameof(GetPayment), new { paymentId = payment.PaymentId }, payment);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         [HttpPut("{paymentId}")]

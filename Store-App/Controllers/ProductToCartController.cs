@@ -63,19 +63,33 @@ namespace Store_App.Controllers
         [HttpDelete("{cartId}/products/{productId}")]
         public async Task<ActionResult> RemoveProductFromCart(int cartId, int productId)
         {
-            var productToCart = await _context.ProductToCarts
-                .Where(ptc => ptc.CartId == cartId && ptc.ProductId == productId)
-                .FirstOrDefaultAsync();
-
-            if (productToCart == null)
+            try
             {
-                return NotFound();
+                // Log or add breakpoints to check values
+                Console.WriteLine($"Removing product {productId} from cart {cartId}");
+
+                var productToCart = await _context.ProductToCarts
+                    .Where(ptc => ptc.CartId == cartId && ptc.ProductId == productId)
+                    .ToListAsync(); // Ensure asynchronous query execution
+
+                if (productToCart == null || !productToCart.Any())
+                {
+                    Console.WriteLine($"Product {productId} not found in cart {cartId}");
+                    return NotFound();
+                }
+
+                _context.ProductToCarts.Remove(productToCart.First());
+                await _context.SaveChangesAsync();
+
+                Console.WriteLine($"Product {productId} removed successfully from cart {cartId}");
+                return Ok();
             }
-
-            _context.ProductToCarts.Remove(productToCart);
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error removing product from cart: {ex.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Store_App.Controllers
 
         public AddressController(StoreAppDbContext addressContext)
         {
-            _addressContext = addressContext;
+            _addressContext = addressContext ?? throw new ArgumentNullException(nameof(addressContext));
         }
 
         [HttpGet("{addressId}")]
@@ -46,9 +46,16 @@ namespace Store_App.Controllers
         [HttpPut("{addressId}")]
         public async Task<ActionResult> UpdateAddress(int addressId, Address address)
         {
-            if (addressId != address.AddressId)
+            if (addressId != address.AddressId || address == null)
             {
                 return BadRequest();
+            }
+
+            // Add a null check for the _addressContext
+            if (_addressContext == null)
+            {
+                // Handle the case where _addressContext is null, e.g., log an error
+                return StatusCode(500, "Internal Server Error");
             }
 
             _addressContext.Entry(address).State = EntityState.Modified;
@@ -84,7 +91,8 @@ namespace Store_App.Controllers
         [HttpGet("{addressId}/customer")]
         public async Task<ActionResult<Person>> GetCustomerByAddress(int addressId)
         {
-            var customer = await _addressContext.People.FirstOrDefaultAsync(c => c.AddressId == addressId);
+            var customer = await _addressContext.People
+                .FirstOrDefaultAsync(c => c.AddressId == addressId);
 
             if (customer == null)
             {
