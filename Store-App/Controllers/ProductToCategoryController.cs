@@ -24,14 +24,26 @@ namespace Store_App.Controllers
         [HttpGet("{categoryId}/products")]
         public async Task<ActionResult<IEnumerable<ProductToCategory>>> GetProductsInCategory(int categoryId)
         {
+            if (_context.ProductToCategories == null)
+            {
+                return NotFound(); // Return NotFoundResult without a specific message
+            }
+
             var productsInCategory = await _context.ProductToCategories
                 .Where(ptc => ptc.CategoryId == categoryId)
                 .Include(ptc => ptc.Product)
                 .ToListAsync();
 
+            // Check if productsInCategory is null
             if (productsInCategory == null)
             {
                 return NotFound();
+            }
+
+            // Check if productsInCategory is empty
+            if (!productsInCategory.Any())
+            {
+                return NotFound("No products found in the specified category.");
             }
 
             return productsInCategory;
@@ -45,7 +57,8 @@ namespace Store_App.Controllers
 
             if (product == null || category == null)
             {
-                return NotFound();
+                Console.WriteLine($"Product: {product}, Category: {category}");
+                return NotFound("Product or Category not found");
             }
 
             var productToCategory = new ProductToCategory
@@ -60,16 +73,25 @@ namespace Store_App.Controllers
             return CreatedAtAction(nameof(GetProductsInCategory), new { categoryId = categoryId }, productToCategory);
         }
 
+
         [HttpDelete("{categoryId}/products/{productId}")]
         public async Task<ActionResult> RemoveProductFromCategory(int categoryId, int productId)
         {
+            // Check if the category exists
+            var category = await _context.Categories.FindAsync(categoryId);
+            if (category == null)
+            {
+                return NotFound($"Category with ID {categoryId} not found.");
+            }
+
+            // Check if the product exists in the category
             var productToCategory = await _context.ProductToCategories
                 .Where(ptc => ptc.CategoryId == categoryId && ptc.ProductId == productId)
                 .FirstOrDefaultAsync();
 
             if (productToCategory == null)
             {
-                return NotFound();
+                return NotFound($"Product with ID {productId} not found in Category with ID {categoryId}.");
             }
 
             _context.ProductToCategories.Remove(productToCategory);
@@ -77,5 +99,6 @@ namespace Store_App.Controllers
 
             return Ok();
         }
+
     }
 }

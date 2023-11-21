@@ -25,11 +25,11 @@ export const ProductBox = ({ product }) => {
     }, [product]);
 
     return (
-        <div>
+        <div className="product">
         {/*Put the entire box into a link to the detailed product page*/}
             <Link to={`/detailed-view/${product?.productId}`}>
                 <div key={product?.productId} className="product">
-                    <div className="product-image">
+                    <div className="product-image-container">
                         <img src={product?.imageUrl} alt={product?.productName} />
                         {onSale && (
                             <div className="product-percent-off">{ sale.percentOff }% OFF</div>
