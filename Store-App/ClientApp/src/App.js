@@ -3,6 +3,7 @@ import './custom.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import { LoginPage } from './pages/LoginPage/LoginPage';
+import { CartPage } from './pages/CartPage/Cart'
 import { APITest } from './components/APITest/APITest';
 import { DisplayDetailedProduct } from "./pages/DetailedProduct/DetailedProduct.js";
 import { SearchPage } from './pages/SearchPage/SearchPage';
@@ -24,6 +25,7 @@ export default function App() {
                     <Route path="/search/:query" element={<SearchPage />} />
                     <Route path="/apitest" element={<APITest />} />
                     <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
+                    <Route path="/cart/:personId" element={<CartPage />} />
                 </Routes>
             </Container>
         </div>

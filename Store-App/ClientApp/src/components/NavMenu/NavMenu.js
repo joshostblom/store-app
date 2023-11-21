@@ -41,6 +41,9 @@ export const NavMenu = ({ isLoggedIn, setLoggedIn }) => {
                                 <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
                             )}
                         </NavItem>
+                        <NavItem>
+                            <NavLink tag={Link} className="text-dark" to="/cart/:personId">Cart</NavLink>
+                        </NavItem>
                     </ul>
                 </Collapse>
             </Navbar>
