@@ -19,7 +19,7 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
         // Use a function inside useEffect to handle asynchronous code
         const fetchAddressData = async () => {
             try {
-                const response = await fetch('address/getaddressbasedonaccountid');
+                const response = await fetch('address/getaddressusingpersonid');
                 const json = await response.json();
                 setStreet(json.street);
                 setCity(json.city);
@@ -31,7 +31,7 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
         };
         const fetchPaymentData = async () => {
             try {
-                const response = await fetch('payment/getpaymentbasedonaccountid');
+                const response = await fetch('payment/getpaymentusingpersonid');
                 const json = await response.json();
                 setFirstNameTextBoxValue(json.cardFirstName);
                 setLastNameTextBoxValue(json.cardLastName);
@@ -42,7 +42,7 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
         };
         const fetchCartData = async () => {
             try {
-                const response = await fetch('cart/getcartbasedonaccountid');
+                const response = await fetch('cart/getcartusingpersonid');
                 const json = await response.json();
                 setCartTotal(json.total);
             } catch (error) {
