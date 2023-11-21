@@ -26,8 +26,13 @@ namespace Store_App.Controllers
         [HttpGet]
         public async Task<ActionResult<Payment>> GetPaymentUsingPersonId()
         {
-            Person person = UserHelper.GetCurrentUser();
-            Payment payment = await _paymentContext.Payments.FindAsync(person.getPaymentId());
+            Person? person = UserHelper.GetCurrentUser();
+            Payment? payment = null;
+
+            if (person != null)
+            {
+                payment = await _paymentContext.Payments.FindAsync(person.getPaymentId());
+            }
             if (payment == null)
             {
                 return NotFound();
@@ -69,23 +74,48 @@ namespace Store_App.Controllers
             }
         }
 
-        [HttpPut("{paymentId}")]
-        public async Task<ActionResult> UpdatePayment(int paymentId, Payment payment)
+        private bool PaymentExists(int paymentId)
         {
-            if (paymentId != payment.PaymentId)
+            return _paymentContext.Payments.Any(p => p.PaymentId == paymentId);
+        }
+
+        [HttpPut("{paymentId}")]
+        public async Task<IActionResult> UpdatePayment(int paymentId, Payment payment)
+        {
+            if (payment == null || paymentId != payment.PaymentId)
             {
-                return BadRequest();
+                return BadRequest("Invalid payment data");
             }
 
-            _paymentContext.Entry(payment).State = EntityState.Modified;
+            var existingPayment = await _paymentContext.Payments.FindAsync(paymentId);
+
+            if (existingPayment == null)
+            {
+                return NotFound();
+            }
+
+            // Update existingPayment properties with values from the incoming payment
+            existingPayment.CardLastName = payment.CardLastName;
+            existingPayment.CardFirstName = payment.CardFirstName;
+            existingPayment.CardNumber = payment.CardNumber;
+            existingPayment.Cvv = payment.Cvv;
+            existingPayment.ExpirationDate = payment.ExpirationDate;
 
             try
             {
+                _paymentContext.Entry(existingPayment).State = EntityState.Modified;
                 await _paymentContext.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {
-                throw;
+                if (!PaymentExists(paymentId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
             return Ok();

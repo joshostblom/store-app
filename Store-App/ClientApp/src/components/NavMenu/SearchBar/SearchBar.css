@@ -41,7 +41,9 @@ input:focus {
     overflow-y: auto;
 }
 
-.suggestions-container .suggestion-item {
+.suggestions-header {
+    margin-left: 5px;
+    font-weight: bold;
 }
 
 .suggestion-text {

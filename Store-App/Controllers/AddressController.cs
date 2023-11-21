@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-using Store_App.Helpers;
 
 namespace Store_App.Controllers
 {
@@ -20,14 +19,19 @@ namespace Store_App.Controllers
 
         public AddressController(StoreAppDbContext addressContext)
         {
-            _addressContext = addressContext ?? throw new ArgumentNullException(nameof(addressContext));
+            _addressContext = addressContext;
         }
 
         [HttpGet]
         public async Task<ActionResult<Address>> GetAddressUsingPersonId()
         {
-            Person person = UserHelper.GetCurrentUser();
-            Address address = await _addressContext.Addresses.FindAsync(person.getAddressId());
+            Person? person = UserHelper.GetCurrentUser();
+            Address? address = null;
+
+            if (person != null)
+            {
+                address = await _addressContext.Addresses.FindAsync(person.getAddressId());
+            }
             if (address == null)
             {
                 return NotFound();
@@ -57,31 +61,25 @@ namespace Store_App.Controllers
             return CreatedAtAction(nameof(GetAddress), new { addressId = address.AddressId }, address);
         }
 
-        [HttpPut("{addressId}")]
-        public async Task<ActionResult> UpdateAddress(int addressId, Address address)
+        public async Task<IActionResult> UpdateAddress(int addressId, Address address)
         {
-            if (addressId != address.AddressId || address == null)
+            if (address == null)
             {
-                return BadRequest();
+                return BadRequest("The 'address' parameter is null.");
             }
 
-            // Add a null check for the _addressContext
-            if (_addressContext == null)
+            var existingAddress = await _addressContext.Addresses.FindAsync(addressId);
+
+            if (existingAddress == null)
             {
-                // Handle the case where _addressContext is null, e.g., log an error
-                return StatusCode(500, "Internal Server Error");
+                return NotFound();
             }
 
-            _addressContext.Entry(address).State = EntityState.Modified;
+            // Update properties of existingAddress with values from the provided 'address'
+            existingAddress.Street = address.Street;
+            existingAddress.City = address.City;
 
-            try
-            {
-                await _addressContext.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
+            await _addressContext.SaveChangesAsync();
 
             return Ok();
         }
@@ -105,8 +103,17 @@ namespace Store_App.Controllers
         [HttpGet("{addressId}/customer")]
         public async Task<ActionResult<Person>> GetCustomerByAddress(int addressId)
         {
+            // Check for null _context.People
+            if (_addressContext.People == null)
+            {
+                // You may need to handle this case based on your application's logic
+                return NotFound(); // Or another appropriate response
+            }
+
             var customer = await _addressContext.People
-                .FirstOrDefaultAsync(c => c.AddressId == addressId);
+                // Check for null before applying Where
+                .Where(p => p.AddressId == addressId)
+                .FirstOrDefaultAsync();
 
             if (customer == null)
             {

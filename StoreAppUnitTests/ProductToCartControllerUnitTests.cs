@@ -107,7 +107,6 @@ namespace ProductToCartControllerUnitTests
             Assert.IsInstanceOfType(result.Result, typeof(CreatedAtActionResult));
         }
 
-
         [TestMethod]
         public async Task RemoveProductFromCart_ReturnsOkResponse()
         {
