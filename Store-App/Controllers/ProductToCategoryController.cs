@@ -21,20 +21,24 @@ namespace Store_App.Controllers
             _context = context;
         }
 
-        [HttpGet("{categoryId}/products")]
-        public async Task<ActionResult<IEnumerable<ProductToCategory>>> GetProductsInCategory(int categoryId)
+        [HttpGet("{categoryId}")]
+        public IEnumerable<Product> GetProductsInCategory(int categoryId)
         {
-            var productsInCategory = await _context.ProductToCategories
-                .Where(ptc => ptc.CategoryId == categoryId)
-                .Include(ptc => ptc.Product)
-                .ToListAsync();
+            var productsInCategory = _context.ProductToCategories.ToList()
+                .Where(ptc => ptc.CategoryId == categoryId);
 
-            if (productsInCategory == null)
+            var products = new List<Product>();
+
+            foreach (var ptc in productsInCategory)
             {
-                return NotFound();
+                var product = _context.Products.Find(ptc.ProductId);
+                if (product != null)
+                {
+                    products.Add(product);
+                }
             }
 
-            return productsInCategory;
+            return products;
         }
 
         [HttpPost("{categoryId}/products/{productId}")]

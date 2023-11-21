@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AiOutlineSearch } from 'react-icons/ai'
 import { MdClear } from 'react-icons/md'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, createSearchParams } from 'react-router-dom'
 import "./SearchBar.css"
 
 export const SearchBar = () => {
@@ -43,25 +43,25 @@ export const SearchBar = () => {
     }
 
     //Navigate to search page with input
-    const search = (input, isCategories) => {
+    const search = (product, category) => {
         clearSuggestions();
         navigate({
             pathname: "search",
             search: createSearchParams({
-
+                product: product,
+                category: category,
             }).toString()
         });
-        navigate(`search/${JSON.stringify(searchObject)}`)
     }
 
     return (
         <div className="search">
             <div className="search-bar-container">
-                <AiOutlineSearch className="search-icon" onClick={() => search(query, false) } />
+                <AiOutlineSearch className="search-icon" onClick={() => search(query, null) } />
                 <input type="text"
                     value={query}
                     placeholder="Search for categories or items"
-                    onKeyDown={(key) => { if (key.key === 'Enter') { search(query, false); } }}
+                    onKeyDown={(key) => { if (key.key === 'Enter') { search(query, null); } }}
                     onChange={(e) => handleChange(e.target.value)} />
                 <MdClear className="clear-icon" onClick={() => { setQuery(""); clearSuggestions(); }} />
             </div>
@@ -72,7 +72,7 @@ export const SearchBar = () => {
                 {categorySuggestions?.map((value) => (
                     <div className="suggestion-item" onClick={() => {
                         setQuery(value.name);
-                        search(value.categoryId, true);
+                        search(null, value.categoryId);
                     }
                     }> <div className="suggestion-text"> {value.name} </div> </div>
                 ))}
@@ -82,7 +82,7 @@ export const SearchBar = () => {
                 {productSuggestions?.map((value) => (
                     <div className="suggestion-item" onClick={() => {
                         setQuery(value.productName);
-                        search(value.productName, false);
+                        search(value.productName, null);
                     }
                     }> <div className="suggestion-text"> {value.productName} </div> </div>
                 ))}
