@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Store_App.Helpers;
 using Store_App.Models.DBClasses;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Store_App.Helpers;
 
 namespace Store_App.Controllers
 {
@@ -19,6 +21,18 @@ namespace Store_App.Controllers
         public PaymentController(StoreAppDbContext paymentContext)
         {
             _paymentContext = paymentContext;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Payment>> GetPaymentBasedOnAccountId()
+        {
+            Person person = UserHelper.GetCurrentUser();
+            Payment payment = await _paymentContext.Payments.FindAsync(person.getPaymentId());
+            if (payment == null)
+            {
+                return NotFound();
+            }
+            return payment;
         }
 
         [HttpGet("{paymentId}")]

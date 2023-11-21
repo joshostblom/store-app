@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Store_App.Helpers;
 using Store_App.Models.DBClasses;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
+using Store_App.Helpers;
 
 namespace Store_App.Controllers
 {
@@ -19,6 +21,18 @@ namespace Store_App.Controllers
         public AddressController(StoreAppDbContext addressContext)
         {
             _addressContext = addressContext;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Address>> GetAddressBasedOnAccountId()
+        {
+            Person person = UserHelper.GetCurrentUser();
+            Address address = await _addressContext.Addresses.FindAsync(person.getAddressId());
+            if (address == null)
+            {
+                return NotFound();
+            }
+            return address;
         }
 
         [HttpGet("{addressId}")]
