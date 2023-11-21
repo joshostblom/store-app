@@ -42,7 +42,7 @@ export const SearchBar = () => {
         fetchData(value)
     }
 
-    //Navigate to search page with input
+    //Navigate to search page with input as search params
     const search = (product, category) => {
         clearSuggestions();
         navigate({

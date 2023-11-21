@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
-import "./HomePage.css"
 
 export const HomePage = () => {
 
