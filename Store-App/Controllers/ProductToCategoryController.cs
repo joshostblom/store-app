@@ -21,32 +21,24 @@ namespace Store_App.Controllers
             _context = context;
         }
 
-        [HttpGet("{categoryId}/products")]
-        public async Task<ActionResult<IEnumerable<ProductToCategory>>> GetProductsInCategory(int categoryId)
+        [HttpGet("{categoryId}")]
+        public IEnumerable<Product> GetProductsInCategory(int categoryId)
         {
-            if (_context.ProductToCategories == null)
+            var productsInCategory = _context.ProductToCategories.ToList()
+                .Where(ptc => ptc.CategoryId == categoryId);
+
+            var products = new List<Product>();
+
+            foreach (var ptc in productsInCategory)
             {
-                return NotFound(); // Return NotFoundResult without a specific message
+                var product = _context.Products.Find(ptc.ProductId);
+                if (product != null)
+                {
+                    products.Add(product);
+                }
             }
 
-            var productsInCategory = await _context.ProductToCategories
-                .Where(ptc => ptc.CategoryId == categoryId)
-                .Include(ptc => ptc.Product)
-                .ToListAsync();
-
-            // Check if productsInCategory is null
-            if (productsInCategory == null)
-            {
-                return NotFound();
-            }
-
-            // Check if productsInCategory is empty
-            if (!productsInCategory.Any())
-            {
-                return NotFound("No products found in the specified category.");
-            }
-
-            return productsInCategory;
+            return products;
         }
 
         [HttpPost("{categoryId}/products/{productId}")]

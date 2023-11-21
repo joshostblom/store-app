@@ -9,10 +9,6 @@ namespace Store_App.Models.DBClasses
 
         public int CategoryId { get; set; }
 
-        public int ProductId { get; set; }
-
-        public virtual Category? Category { get; set; }
-
-        public virtual Product? Product { get; set; }
+        public int? ProductId { get; set; }
     }
 }
