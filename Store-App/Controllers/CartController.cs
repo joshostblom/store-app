@@ -25,7 +25,7 @@ namespace Store_App.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Cart>> GetCartBasedOnAccountId()
+        public async Task<ActionResult<Cart>> GetCartUsingPersonId()
         {
             Person person = UserHelper.GetCurrentUser();
             Cart cart = await _cartContext.Carts.FindAsync(person.getCartId());

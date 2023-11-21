@@ -24,7 +24,7 @@ namespace Store_App.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Payment>> GetPaymentBasedOnAccountId()
+        public async Task<ActionResult<Payment>> GetPaymentUsingPersonId()
         {
             Person person = UserHelper.GetCurrentUser();
             Payment payment = await _paymentContext.Payments.FindAsync(person.getPaymentId());
