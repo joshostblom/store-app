@@ -15,7 +15,7 @@ const context =  [
     "/category",
     "/payment",
     "/producttocart",
-    "/producttocategory",
+    "/productToCategory",
     "/sale"
 ];
 

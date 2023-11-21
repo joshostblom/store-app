@@ -26,8 +26,13 @@ namespace Store_App.Controllers
         [HttpGet]
         public async Task<ActionResult<Payment>> GetPaymentUsingPersonId()
         {
-            Person person = UserHelper.GetCurrentUser();
-            Payment payment = await _paymentContext.Payments.FindAsync(person.getPaymentId());
+            Person? person = UserHelper.GetCurrentUser();
+            Payment? payment = null;
+
+            if (person != null)
+            {
+                payment = await _paymentContext.Payments.FindAsync(person.getPaymentId());
+            }
             if (payment == null)
             {
                 return NotFound();

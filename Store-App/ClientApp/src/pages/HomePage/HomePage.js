@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
-import "./HomePage.css"
 import { Link } from 'react-router-dom';
 
 export const HomePage = () => {
@@ -16,7 +15,6 @@ export const HomePage = () => {
                 setProducts(json);
             });
     }, []);
-    console.log(products);
     return (
         <div className="product-container">
             {products.length > 0 ?

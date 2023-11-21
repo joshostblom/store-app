@@ -196,14 +196,6 @@ namespace Store_App.Models.DBClasses
                 entity.Property(e => e.ProdToCatId).HasColumnName("ProdToCatID");
                 entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.HasOne(d => d.Category).WithMany(p => p.ProductToCategories)
-                    .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK__ProductTo__Categ__44CA3770");
-
-                entity.HasOne(d => d.Product).WithMany(p => p.ProductToCategories)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__ProductTo__Produ__45BE5BA9");
             });
 
             modelBuilder.Entity<Sale>(entity =>
