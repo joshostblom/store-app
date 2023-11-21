@@ -31,7 +31,7 @@ namespace Store_App.Controllers
 
             var productsInCategory = await _context.ProductToCategories
                 .Where(ptc => ptc.CategoryId == categoryId)
-                .Include(ptc => ptc.Product)
+                .Include(ptc => ptc.ProductId)
                 .ToListAsync();
 
             // Check if productsInCategory is null

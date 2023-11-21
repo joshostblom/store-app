@@ -64,7 +64,18 @@ namespace Store_App.Controllers
                 return BadRequest();
             }
 
-            _categoryContext.Entry(category).State = EntityState.Modified;
+            var existingCategory = await _categoryContext.Categories.FindAsync(categoryId);
+
+            if (existingCategory == null)
+            {
+                return NotFound();
+            }
+
+            // Update the properties of existingCategory
+            existingCategory.Name = category.Name;
+
+            // Set the entity state to Modified
+            _categoryContext.Entry(existingCategory).State = EntityState.Modified;
 
             try
             {
