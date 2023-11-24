@@ -23,7 +23,7 @@ namespace Store_App.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Address>> GetAddressUsingPersonId()
+        public async Task<ActionResult<Address>> GetAddressForCurrentUser()
         {
             Person? person = UserHelper.GetCurrentUser();
             Address? address = null;
