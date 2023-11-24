@@ -24,7 +24,7 @@ namespace Store_App.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Payment>> GetPaymentUsingPersonId()
+        public async Task<ActionResult<Payment>> GetPaymentForCurrentUser()
         {
             Person? person = UserHelper.GetCurrentUser();
             Payment? payment = null;

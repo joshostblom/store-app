@@ -25,7 +25,7 @@ namespace Store_App.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Cart>> GetCartUsingPersonId()
+        public async Task<ActionResult<Cart>> GetCartForCurrentUser()
         {
             Person? person = UserHelper.GetCurrentUser();
             Cart? cart = null;
