@@ -16,7 +16,8 @@ const context =  [
     "/payment",
     "/producttocart",
     "/productToCategory",
-    "/sale"
+    "/sale",
+    "/order-confirmation"
 ];
 
 module.exports = function(app) {
