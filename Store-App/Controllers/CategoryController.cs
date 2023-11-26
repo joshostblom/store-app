@@ -21,6 +21,19 @@ namespace Store_App.Controllers
             _categoryContext = categoryContext;
         }
 
+        [HttpGet("{query}")]
+        public IEnumerable<Category> SearchCategories(string query)
+        {
+            if (_categoryContext.Products == null)
+            {
+                return new List<Category>();
+            }
+
+            IEnumerable<Category> categories = _categoryContext.Categories.ToList().Where(x => x.Name.ToLower().Contains(query.ToLower()));
+
+            return categories;
+        }
+
         [HttpGet("{categoryId}")]
         public async Task<ActionResult<Category>> GetCategory(int categoryId)
         {
@@ -51,7 +64,18 @@ namespace Store_App.Controllers
                 return BadRequest();
             }
 
-            _categoryContext.Entry(category).State = EntityState.Modified;
+            var existingCategory = await _categoryContext.Categories.FindAsync(categoryId);
+
+            if (existingCategory == null)
+            {
+                return NotFound();
+            }
+
+            // Update the properties of existingCategory
+            existingCategory.Name = category.Name;
+
+            // Set the entity state to Modified
+            _categoryContext.Entry(existingCategory).State = EntityState.Modified;
 
             try
             {

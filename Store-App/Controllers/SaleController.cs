@@ -44,26 +44,73 @@ namespace Store_App.Controllers
             return CreatedAtAction(nameof(GetSale), new { saleId = sale.SaleId }, sale);
         }
 
-        [HttpPut("{saleId}")]
-        public async Task<ActionResult> UpdateSale(int saleId, Sale sale)
+        private bool SaleExists(int saleId)
         {
-            if (saleId != sale.SaleId)
-            {
-                return BadRequest();
-            }
+            return _context.Sales.Any(e => e.SaleId == saleId);
+        }
 
-            _context.Entry(sale).State = EntityState.Modified;
-
+        [HttpPut("{saleId}")]
+        public async Task<IActionResult> UpdateSale(int saleId, Sale updatedSale)
+        {
             try
             {
-                await _context.SaveChangesAsync();
+                if (saleId != updatedSale?.SaleId)
+                {
+                    return BadRequest();
+                }
+
+                var existingSale = await _context.Sales.FindAsync(saleId);
+
+                if (existingSale == null)
+                {
+                    return NotFound();
+                }
+
+                if (_context == null)
+                {
+                    // Log the issue or throw an appropriate response
+                    Console.WriteLine("UpdateSale: The '_context' is null.");
+                    return StatusCode(500, "Internal Server Error");
+                }
+
+                if (existingSale == null)
+                {
+                    // Log the issue or throw an appropriate response
+                    Console.WriteLine("UpdateSale: The 'existingSale' is null.");
+                    return StatusCode(500, "Internal Server Error");
+                }
+
+                // Ensure that the entity is being tracked by the context
+                _context.Attach(existingSale);
+
+                // Update only the necessary properties
+                existingSale.StartDate = updatedSale.StartDate;
+                existingSale.EndDate = updatedSale.EndDate;
+                existingSale.PercentOff = updatedSale.PercentOff;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!SaleExists(saleId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return NoContent();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
+                Console.WriteLine($"Exception in UpdateSale: {ex}");
                 throw;
             }
-
-            return Ok();
         }
 
         [HttpDelete("{saleId}")]

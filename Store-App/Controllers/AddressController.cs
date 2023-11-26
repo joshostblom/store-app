@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Store_App.Helpers;
 using Store_App.Models.DBClasses;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,23 @@ namespace Store_App.Controllers
         public AddressController(StoreAppDbContext addressContext)
         {
             _addressContext = addressContext;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Address>> GetAddressForCurrentUser()
+        {
+            Person? person = UserHelper.GetCurrentUser();
+            Address? address = null;
+
+            if (person != null)
+            {
+                address = await _addressContext.Addresses.FindAsync(person.getAddressId());
+            }
+            if (address == null)
+            {
+                return NotFound();
+            }
+            return address;
         }
 
         [HttpGet("{addressId}")]
@@ -43,24 +61,25 @@ namespace Store_App.Controllers
             return CreatedAtAction(nameof(GetAddress), new { addressId = address.AddressId }, address);
         }
 
-        [HttpPut("{addressId}")]
-        public async Task<ActionResult> UpdateAddress(int addressId, Address address)
+        public async Task<IActionResult> UpdateAddress(int addressId, Address address)
         {
-            if (addressId != address.AddressId)
+            if (address == null)
             {
-                return BadRequest();
+                return BadRequest("The 'address' parameter is null.");
             }
 
-            _addressContext.Entry(address).State = EntityState.Modified;
+            var existingAddress = await _addressContext.Addresses.FindAsync(addressId);
 
-            try
+            if (existingAddress == null)
             {
-                await _addressContext.SaveChangesAsync();
+                return NotFound();
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                throw;
-            }
+
+            // Update properties of existingAddress with values from the provided 'address'
+            existingAddress.Street = address.Street;
+            existingAddress.City = address.City;
+
+            await _addressContext.SaveChangesAsync();
 
             return Ok();
         }
@@ -84,7 +103,17 @@ namespace Store_App.Controllers
         [HttpGet("{addressId}/customer")]
         public async Task<ActionResult<Person>> GetCustomerByAddress(int addressId)
         {
-            var customer = await _addressContext.People.FirstOrDefaultAsync(c => c.AddressId == addressId);
+            // Check for null _context.People
+            if (_addressContext.People == null)
+            {
+                // You may need to handle this case based on your application's logic
+                return NotFound(); // Or another appropriate response
+            }
+
+            var customer = await _addressContext.People
+                // Check for null before applying Where
+                .Where(p => p.AddressId == addressId)
+                .FirstOrDefaultAsync();
 
             if (customer == null)
             {
