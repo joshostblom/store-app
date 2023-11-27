@@ -27,7 +27,5 @@
         public double? ProdLength { get; set; }
 
         public double? ProdWeight { get; set; }
-
-        public virtual ICollection<ProductToCart> ProductToCarts { get; set; } = new List<ProductToCart>();
     }
 }
