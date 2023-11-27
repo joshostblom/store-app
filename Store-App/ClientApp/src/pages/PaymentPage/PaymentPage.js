@@ -117,7 +117,7 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
                                         <ProductBox product={product.product}></ProductBox>
                                     ))}
                                 </div>
-                                : <div>Empty Cart</div>}
+                                : <div><h2>Empty Cart</h2></div>}
                         </Col>
                         <Col>
                             <h6 className="d-flex justify-content-md-center">{totalPrice}</h6>
