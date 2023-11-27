@@ -120,5 +120,35 @@ namespace Store_App.Controllers
                 return StatusCode(500, "Internal Server Error");
             }
         }
+
+        [HttpDelete]
+        public async Task<ActionResult> RemoveAllProductsFromCartForCurrentUser()
+        {
+            try
+            {
+                Person? person = UserHelper.GetCurrentUser();
+
+                var productsInCart = await _context.ProductToCarts
+                    .Where(ptc => ptc.CartId == person.CartId)
+                    .Include(ptc => (ptc.Product))
+                    .ToListAsync();
+
+                if (productsInCart == null || !productsInCart.Any())
+                {
+                    return NotFound();
+                }
+                
+                _context.ProductToCarts.RemoveRange(productsInCart);
+                await _context.SaveChangesAsync();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error removing product from cart: {ex.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
     }
 }

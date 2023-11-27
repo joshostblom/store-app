@@ -66,7 +66,7 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
         fetchProductsInCart();
     }, []);
 
-    const totalPrice = "Total Price: " + cartTotal;
+    const totalPrice = "Total Price: $" + cartTotal;
     
     return (
         <div className="outer-container" style={{ paddingTop: '200px', margin: '100px' }}>
@@ -117,7 +117,7 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
                                         <ProductBox product={product.product}></ProductBox>
                                     ))}
                                 </div>
-                                : <div>Loading...</div>}
+                                : <div>Empty Cart</div>}
                         </Col>
                         <Col>
                             <h6 className="d-flex justify-content-md-center">{totalPrice}</h6>
