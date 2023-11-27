@@ -18,7 +18,6 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
     const [cartProducts, setCartProducts] = useState([]);
 
     useEffect(() => {
-        // Use a function inside useEffect to handle asynchronous code
         const fetchAddressData = async () => {
             try {
                 const response = await fetch('address/getaddressforcurrentuser');
@@ -47,7 +46,15 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
                 const response = await fetch('cart/getcartforcurrentuser');
                 const json = await response.json();
                 setCartTotal(json.total);
-                setCartProducts(json.productToCarts)
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        const fetchProductsInCart = async () => {
+            try {
+                const response = await fetch('producttocart/getproductsincartforcurrentuser');
+                const json = await response.json();
+                setCartProducts(json)
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -56,61 +63,71 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
         fetchAddressData();
         fetchPaymentData();
         fetchCartData();
+        fetchProductsInCart();
     }, []);
 
     const totalPrice = "Total Price: " + cartTotal;
-
+    
     return (
-        <div className="outer-container" style={{ paddingTop: '200px' }}>
+        <div className="outer-container" style={{ paddingTop: '200px', margin: '100px' }}>
             <table style={{ width: '100%', marginTop: '10px', borderCollapse: 'collapse' }}>
                 <tbody>
-                    <Row className="justify-content-md-start">
-                        <Col className="mb-3">
+                    <Row className="justify-content-md-start mb-3">
+                        <Col>
                             <label htmlFor="firstName" className="text-right">First Name:</label>
                             <input className="text-field" id="firstName" type="text" value={firstNameTextBoxValue} onChange={(e) => { setFirstNameTextBoxValue(e.target.value) }} style={{ textAlign: 'center' }} />
                         </Col>
-                        <Col className="mb-3">
+                        <Col>
                             <label htmlFor="street" className="text-right">Street:</label>
                             <input className="text-field" id="street" type="text" value={street} onChange={(e) => { setStreet(e.target.value) }} style={{ textAlign: 'center' }} />
                         </Col>
                     </Row>
-                    <Row className="justify-content-md-start">
-                        <Col className="mb-3">
-                            <label for="lastName">Last Name:</label>
+                    <Row className="justify-content-md-start mb-3">
+                        <Col>
+                            <label htmlFor="lastName">Last Name:</label>
                             <input className="text-field" id="lastName" type="text" value={lastNameTextBoxValue} onChange={(e) => { setLastNameTextBoxValue(e.target.value) }} style={{ textAlign: 'center' }} />
                         </Col>
-                        <Col className="mb-3">
-                            <label for="city">City:</label>
+                        <Col>
+                            <label htmlFor="city">City:</label>
                             <input className="text-field" id="city" type="text" value={city} onChange={(e) => { setCity(e.target.value) }} style={{ textAlign: 'center' }} />
                         </Col>
                     </Row>
-                    <Row className="justify-content-md-start">
-                        <Col className="mb-3">
-                            <label for="cardNumber">Card Number:</label>
+                    <Row className="justify-content-md-start mb-3">
+                        <Col>
+                            <label htmlFor="cardNumber">Card Number:</label>
                             <input className="text-field" id="cardNumber" type="text" value={cardNumberTextBoxValue} onChange={(e) => { setCardNumberTextBoxValue(e.target.value) }} style={{ textAlign: 'center' }} />
                         </Col>
-                        <Col className="mb-3">
-                            <label for="country">Country:</label>
+                        <Col>
+                            <label htmlFor="country">Country:</label>
                             <input className="text-field" id="country" type="text" value={country} onChange={(e) => { setCountry(e.target.value) }} style={{ textAlign: 'center' }} />
                         </Col>
                     </Row>
-                    <Row className="justify-content-md-start">
-                        <Col className="mb-3">
-                            <label for="postalCode">Postal Code:</label>
+                    <Row className="justify-content-md-start mb-3">
+                        <Col>
+                            <label htmlFor="postalCode">Postal Code:</label>
                             <input className="text-field" id="postalCode" type="text" value={postalCode} onChange={(e) => { setPostalCode(e.target.value) }} style={{ textAlign: 'center' }} />
                         </Col>
                     </Row>
-                    {cartProducts.length > 0 ?
-                        cartProducts?.map((product) => (
-                            <ProductBox product={product}></ProductBox>
-                        ))
-                        : <div>Loading...</div>}
-                    <h6 className="d-flex justify-content-md-end">{totalPrice}</h6>
-                    <div style={{ display: 'flex', justifyContent: 'right' }}>
-                        <Link to={`/order-confirmation`}>
-                            <button className="btn-primary">Place Order</button>
-                        </Link>
-                    </div>
+                    <Row>
+                        <Col>
+                            {cartProducts.length > 0 ?
+                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+
+                                    {cartProducts?.map((product) => (
+                                        <ProductBox product={product.product}></ProductBox>
+                                    ))}
+                                </div>
+                                : <div>Loading...</div>}
+                        </Col>
+                        <Col>
+                            <h6 className="d-flex justify-content-md-center">{totalPrice}</h6>
+                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <Link to={`/order-confirmation`}>
+                                    <button className="btn-primary">Place Order</button>
+                                </Link>
+                            </div>
+                        </Col>
+                    </Row>
                 </tbody>
             </table>
         </div>
