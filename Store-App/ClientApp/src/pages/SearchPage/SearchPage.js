@@ -56,7 +56,7 @@ export const SearchPage = () => {
                     products.length > 0 ?
                         //Dispaly each product in a product box
                         products?.map((product) => (
-                            <ProductBox product={product}></ProductBox>
+                            <ProductBox product={product.product ?? product}></ProductBox>
                         )) : <div>No results found.</div>
                 )}
             </div>

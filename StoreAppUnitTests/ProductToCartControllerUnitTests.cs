@@ -83,7 +83,6 @@ namespace ProductToCartControllerUnitTests
                 ProdLength = 10.0,
                 ProdWeight = 2.0,
                 ProductToCarts = new List<ProductToCart>(), // Initialize ProductToCarts property
-                ProductToCategories = new List<ProductToCategory>(), // Initialize ProductToCategories property
             });
 
             // Mock setup for Carts
