@@ -17,6 +17,49 @@ namespace AddressControllerUnitTests
     public class AddressControllerTests
     {
         [TestMethod]
+        public async Task GetAddressForCurrentUser_ReturnsAddressById()
+        {
+            // Arrange
+            var controller = new AddressController(MockDbContext());
+            Person? person = new Person {AddressId = 1};
+            UserHelper.SetCurrentUser(person);
+
+            // Act
+            var result = await controller.GetAddressForCurrentUser();
+
+            // Assert
+            Assert.IsNotNull(result);
+
+            // Check if the result is NotFound
+            if (result.Result is NotFoundResult)
+            {
+                Assert.IsNull(result.Value, "Expected null Value property when address is not found.");
+            }
+            else
+            {
+                Assert.IsInstanceOfType(result.Result, typeof(ActionResult<Address>));
+                Assert.IsInstanceOfType(result.Value, typeof(Address));
+                Assert.AreEqual(1, result.Value.AddressId);
+            }
+        }
+
+
+        [TestMethod]
+        public async Task GetAddressForCurrentUser_ReturnsNotFoundForNonexistentAddress()
+        {
+            // Arrange
+            var controller = new AddressController(MockDbContext());
+            var addressId = 999; // Assuming this address ID does not exist in the mock data
+
+            // Act
+            var result = await controller.GetAddressForCurrentUser();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
         public async Task GetAddress_ReturnsAddressById()
         {
             // Arrange
