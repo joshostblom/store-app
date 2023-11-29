@@ -7,6 +7,7 @@ using Store_App.Models.DBClasses;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Store_App.Helpers;
 using static ProductControllerUnitTests.ProductControllerTests;
 
 namespace ProductToCartControllerUnitTests
@@ -32,6 +33,32 @@ namespace ProductToCartControllerUnitTests
     [TestClass]
     public class ProductToCartControllerTests
     {
+        [TestMethod]
+        public async Task GetProductsInCartForCurrentUser_ReturnsProducts()
+        {
+            // Arrange
+            var controller = new ProductToCartController(MockDbContext());
+            Person? person = new Person { CartId = 1 };
+            UserHelper.SetCurrentUser(person);
+
+            var productToCarts = new List<ProductToCart>
+            {
+                new ProductToCart { CartId = person.CartId, ProductId = 1, Product = new Product { ProductId = 1, ProductName = "Product1" } },
+                new ProductToCart { CartId = person.CartId, ProductId = 2, Product = new Product { ProductId = 2, ProductName = "Product2" } }
+            };
+
+            var mockDbSet = productToCarts.AsQueryable().BuildMockDbSet();
+            var dbContextMock = new Mock<StoreAppDbContext>();
+            dbContextMock.Setup(x => x.ProductToCarts).Returns(mockDbSet.Object);
+
+            // Act
+            var result = await controller.GetProductsInCartForCurrentUser();
+
+            // Assert
+            Assert.IsNotNull(result.Value);
+            Assert.AreEqual(2, result.Value.Count());
+        }
+
         [TestMethod]
         public async Task GetProductsInCart_ReturnsProducts()
         {
@@ -82,7 +109,6 @@ namespace ProductToCartControllerUnitTests
                 ProdWidth = 3.0,
                 ProdLength = 10.0,
                 ProdWeight = 2.0,
-                ProductToCarts = new List<ProductToCart>(), // Initialize ProductToCarts property
             });
 
             // Mock setup for Carts
