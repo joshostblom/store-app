@@ -12,13 +12,14 @@ export const CartPage = () => {
     
     
     useEffect(() => {
-        fetch('product/getProducts')
+        fetch('producttocart/GetProductsInCart')
             .then((response) => response.json())
             .then((json) => {
                 setProducts(json);
             });
     }, []);
 
+    //make differnt component for displaying items in cart
     return (
         <div className="product-container">
             {products.length > 0 ?

@@ -4,8 +4,6 @@ import { useParams } from "react-router-dom";
 import "./DetailedProduct.css";
 import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
 
-//TODO: NEED CART ID
-
 export const DisplayDetailedProduct = () => {
     const { productId } = useParams();
     const [productById, setProductById] = useState({});
@@ -43,7 +41,7 @@ export const DisplayDetailedProduct = () => {
             const cartData = await responseCart.json();
             const cartId = cartData.cartId;
 
-            const responseAddToCart = await fetch(`/productToCart/AddProductToCart/${cartId}/products/${productId}`, {
+            const responseAddToCart = await fetch(`/producttocart/AddProductToCart/${cartId}/products/${productId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
