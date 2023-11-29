@@ -12,6 +12,7 @@ CREATE TABLE Addresses (
   AddressID int NOT NULL IDENTITY(1,1) PRIMARY KEY,
   Street varchar(255) NOT NULL,
   City varchar(255) NOT NULL,
+  [State] varchar(255) NOT NULL,
   Country varchar(255) NOT NULL,
   PostalCode varchar(255) NOT NULL
 );
