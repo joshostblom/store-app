@@ -28,6 +28,7 @@
 
         public double? ProdWeight { get; set; }
 
-        public virtual ICollection<ProductToCategory> ProductToCategories { get; set; } = new List<ProductToCategory>();
+        public virtual ICollection<ProductToCart> ProductToCarts { get; set; } = new List<ProductToCart>();
+      
     }
 }

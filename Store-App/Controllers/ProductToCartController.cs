@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Store_App.Helpers;
 using Store_App.Models.DBClasses;
 using System;
 using System.Collections.Generic;
@@ -21,7 +23,29 @@ namespace Store_App.Controllers
             _context = context;
         }
 
-        [HttpGet("{cartId}/products")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ProductToCart>>> GetProductsInCartForCurrentUser()
+        {
+            Person? person = UserHelper.GetCurrentUser();
+            
+            var productsInCart = await _context.ProductToCarts
+                .Where(ptc => ptc.CartId == person.CartId)
+                .Include(ptc => (ptc.Product))
+                .ToListAsync();
+
+            if (productsInCart == null)
+            {
+                return NotFound();
+            }
+
+            if (!productsInCart.Any())
+            {
+                return NotFound("Cart is Empty.");
+            }
+            return productsInCart;
+        }
+
+        [HttpGet("{cartId}")]
         public async Task<ActionResult<IEnumerable<ProductToCart>>> GetProductsInCart(int cartId)
         {
             var productsInCart = await _context.ProductToCarts
@@ -32,6 +56,11 @@ namespace Store_App.Controllers
             if (productsInCart == null)
             {
                 return NotFound();
+            }
+
+            if (!productsInCart.Any())
+            {
+                return NotFound("Cart is Empty.");
             }
 
             return productsInCart;
@@ -83,6 +112,36 @@ namespace Store_App.Controllers
                 await _context.SaveChangesAsync();
 
                 Console.WriteLine($"Product {productId} removed successfully from cart {cartId}");
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                Console.WriteLine($"Error removing product from cart: {ex.Message}");
+                return StatusCode(500, "Internal Server Error");
+            }
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> RemoveAllProductsFromCartForCurrentUser()
+        {
+            try
+            {
+                Person? person = UserHelper.GetCurrentUser();
+
+                var productsInCart = await _context.ProductToCarts
+                    .Where(ptc => ptc.CartId == person.CartId)
+                    .Include(ptc => (ptc.Product))
+                    .ToListAsync();
+
+                if (productsInCart == null || !productsInCart.Any())
+                {
+                    return NotFound();
+                }
+                
+                _context.ProductToCarts.RemoveRange(productsInCart);
+                await _context.SaveChangesAsync();
+
                 return Ok();
             }
             catch (Exception ex)

@@ -45,6 +45,9 @@ namespace Store_App.Models.DBClasses
                 entity.Property(e => e.City)
                     .HasMaxLength(255)
                     .IsUnicode(false);
+                entity.Property(e => e.State)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
                 entity.Property(e => e.Country)
                     .HasMaxLength(255)
                     .IsUnicode(false);
