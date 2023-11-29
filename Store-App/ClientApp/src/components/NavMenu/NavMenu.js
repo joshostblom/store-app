@@ -42,7 +42,7 @@ export const NavMenu = ({ isLoggedIn, setLoggedIn }) => {
                             )}
                         </NavItem>
                         <NavItem>
-                            <NavLink tag={Link} className="text-dark" to="/cart/:personId">Cart</NavLink>
+                            <NavLink tag={Link} className="text-dark" to="/cart">Cart</NavLink>
                         </NavItem>
                     </ul>
                 </Collapse>

@@ -46,6 +46,7 @@ namespace Store_App.Controllers
             if (product == null || cart == null)
             {
                 return NotFound();
+                
             }
 
             var productToCart = new ProductToCart

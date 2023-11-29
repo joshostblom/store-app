@@ -27,7 +27,7 @@ export default function App() {
                     <Route path="/search" element={<SearchPage />} />
                     <Route path="/apitest" element={<APITest />} />
                     <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
-                    <Route path="/cart/:personId" element={<CartPage />} />
+                    <Route path="/cart" element={<CartPage />} />
                     <Route path="/payment" element={<PaymentPage setLoggedIn={setLoggedIn} />} />
                     <Route path="/order-confirmation" element={<OrderConfirmationPage setLoggedIn={setLoggedIn} />} />
                 </Routes>
