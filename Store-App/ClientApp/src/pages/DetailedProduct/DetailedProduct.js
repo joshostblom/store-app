@@ -32,9 +32,23 @@ export const DisplayDetailedProduct = () => {
         }
     }, [productById]);
 
+    const onSale = checkValidSale(sale);
     const description = "Description: " + productById?.descript;
     const manufacturer = "Manufacturer: " + productById?.manufacturerInformation;
     const dimensions = "Dimensions: \"" + productById?.prodHeight + "\" X \"" + productById?.prodWidth + "\" X \"" + productById?.prodLength + "\" X \"" + productById?.prodWeight + "\"";
+
+    //Check if today's date is within the sale date
+    function checkValidSale(sale) {
+        if (sale != null) {
+            const today = new Date();
+            const startDate = new Date(sale.startDate);
+            const endDate = new Date(sale.endDate);
+
+            return startDate < today && today < endDate;
+        } else {
+            return false;
+        }
+    }
 
     return (
         <div className="outer-container" style={{ paddingTop: '200px' }}>
@@ -45,9 +59,11 @@ export const DisplayDetailedProduct = () => {
                             <ProductBox product={productById}></ProductBox>
                         </div>
                     </Row>
-                    <Row className="justify-content-md-center">
-                        <SaleBanner sale={sale}></SaleBanner>
-                    </Row>
+                    {onSale && (
+                        <Row className="justify-content-md-center">
+                            <SaleBanner sale={sale}></SaleBanner>
+                        </Row>
+                    )}
                     <Row className="justify-content-md-center">
                         <h6 className="product-text">{description}</h6>
                     </Row>

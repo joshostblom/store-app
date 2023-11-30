@@ -9,9 +9,22 @@ export const ProductBox = ({ product }) => {
     const [sale, setSale] = useState({});
 
     //Set properties for sale info
-    const onSale = sale !== null;
+    const onSale = checkValidSale(sale);
     const listPrice = "$" + product?.price?.toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 });
     const salePrice = sale !== null ? "$" + (product?.price * (1 - sale.percentOff * 0.01)).toLocaleString(undefined, { maximumFractionDigits: 2, minimumFractionDigits: 2 }) : null;
+
+    //Check if today's date is within the sale date
+    function checkValidSale(sale) {
+        if (sale != null) {
+            const today = new Date();
+            const startDate = new Date(sale.startDate);
+            const endDate = new Date(sale.endDate);
+
+            return startDate < today && today < endDate;
+        } else {
+            return false;
+        }
+    }
 
     //Get the sale from the controller
     useEffect(() => {
