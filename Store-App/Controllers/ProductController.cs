@@ -2,27 +2,19 @@
 using System.Data;
 using Microsoft.EntityFrameworkCore;
 using Store_App.Models.DBClasses;
+using Store_App.Controllers.Interfaces;
 
 namespace Store_App.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController : ControllerBase, IProductController
     {
 
         private readonly StoreAppDbContext _productContext;
         public ProductController(StoreAppDbContext productContext)
         {
             _productContext = productContext;
-        }
-
-        [HttpGet]
-        public Product GetTest()
-        {
-            return new Product()
-            {
-                ProductName = "This product was retrieved from the ProductController GetTest method!",
-            };
         }
 
         [HttpGet("{query}")]
