@@ -3,11 +3,15 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./DetailedProduct.css";
 import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
+import { SaleBanner } from "../../components/Sale/SaleBanner/SaleBanner.js";
 import { Row } from "react-bootstrap";
 
 export const DisplayDetailedProduct = () => {
     const { productId } = useParams();
     const [productById, setProductById] = useState({});
+
+    //Create a state for sale
+    const [sale, setSale] = useState({});
 
     useEffect(() => {
         fetch(`product/getProduct/${productId}`)
@@ -16,6 +20,17 @@ export const DisplayDetailedProduct = () => {
                 setProductById(json);
             });
     }, [productId]);
+
+    //Get the sale from the controller
+    useEffect(() => {
+        if (productById?.saleId != null) {
+            fetch(`sale/getSale/${productById.saleId}`)
+                .then((response) => response.json())
+                .then((json) => {
+                    setSale(json);
+                });
+        }
+    }, [productById]);
 
     const description = "Description: " + productById?.descript;
     const manufacturer = "Manufacturer: " + productById?.manufacturerInformation;
@@ -29,6 +44,9 @@ export const DisplayDetailedProduct = () => {
                         <div style={{ display: 'flex', justifyContent: 'center' }}>
                             <ProductBox product={productById}></ProductBox>
                         </div>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <SaleBanner sale={sale}></SaleBanner>
                     </Row>
                     <Row className="justify-content-md-center">
                         <h6 className="product-text">{description}</h6>
