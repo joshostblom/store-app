@@ -173,8 +173,7 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
                         <Row>
                             <Col>
                                 {cartProducts.length > 0 ?
-                                    <div style={{ display: 'flex', flexDirection: 'row' }}>
-
+                                    <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
                                         {cartProducts?.map((product) => (
                                             <ProductBox product={product.product}></ProductBox>
                                         ))}
