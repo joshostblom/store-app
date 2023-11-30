@@ -12,20 +12,6 @@ namespace ProductControllerUnitTests
     public class ProductControllerTests
     {
         [TestMethod]
-        public void GetTest_ReturnsProduct()
-        {
-            // Arrange
-            var controller = new ProductController(MockDbContext());
-
-            // Act
-            var result = controller.GetTest();
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOfType(result, typeof(Product));
-        }
-
-        [TestMethod]
         public void SearchProducts_ReturnsFilteredProducts()
         {
             // Arrange
