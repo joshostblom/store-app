@@ -17,15 +17,6 @@ namespace Store_App.Controllers
             _productContext = productContext;
         }
 
-        [HttpGet]
-        public Product GetTest()
-        {
-            return new Product()
-            {
-                ProductName = "This product was retrieved from the ProductController GetTest method!",
-            };
-        }
-
         [HttpGet("{query}")]
         public IEnumerable<Product> SearchProducts(string query)
         {
