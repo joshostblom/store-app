@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Store_App.Controllers.Interfaces;
 using Store_App.Models.DBClasses;
 
 namespace Store_App.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class SaleController : ControllerBase
+    public class SaleController : ControllerBase, ISaleController
     {
         private readonly StoreAppDbContext _context;
 
