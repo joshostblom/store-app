@@ -121,7 +121,13 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
                                 <form>
                                     <div className="form-group">
                                         <label htmlFor="cardNumber">Card Number:</label>
-                                        <input className="text-field" id="cardNumber" type="text" value={cardNumberTextBoxValue} onChange={(e) => { setCardNumberTextBoxValue(e.target.value) }} style={{ textAlign: 'center' }} />
+                                        <input className="text-field" id="cardNumber" type="text" value={cardNumberTextBoxValue} onChange={(e) => {
+                                            const userInput = e.target.value;
+                                            if (/^\d{0,16}$/.test(userInput)) {
+                                                setCardNumberTextBoxValue(userInput);
+                                            }
+                                        }}
+                                        style={{ textAlign: 'center' }} />
                                     </div>
                                 </form>
                             </Col>
@@ -139,7 +145,13 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
                                 <form>
                                     <div className="form-group">
                                         <label htmlFor="cardCvv">CVV:</label>
-                                        <input className="text-field" id="cardCvv" type="text" value={cardCvv} onChange={(e) => { setCardCvv(e.target.value) }} style={{ textAlign: 'center' }} />
+                                        <input className="text-field" id="cardCvv" type="text" value={cardCvv} onChange={(e) => {
+                                            const userInput = e.target.value;
+                                            if (/^\d{0,3}$/.test(userInput)) {
+                                                setCardCvv(userInput);
+                                            }
+                                        }}
+                                        style={{ textAlign: 'center' }} />
                                     </div>
                                 </form>
                             </Col>
@@ -156,8 +168,14 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
                             <Col className="center-column">
                                 <form>
                                     <div className="form-group">
-                                        <label htmlFor="cardExpirationDate">Expiration Date:</label>
-                                        <input className="text-field" id="cardExpirationDate" type="text" value={expirationDate} onChange={(e) => { setCardExpirationDate(e.target.value) }} style={{ textAlign: 'center' }} />
+                                        <label htmlFor="cardExpirationDate">Expiration Date: (YYYY-MM-DD)</label>
+                                        <input className="text-field" id="cardExpirationDate" type="text" value={expirationDate} onChange={(e) => {
+                                            const userInput = e.target.value;
+                                            if (/^\d{0,4}(-\d{0,2}(-\d{0,2})?)?$/.test(userInput)) {
+                                                setCardExpirationDate(userInput);
+                                            }
+                                        }}
+                                        style={{ textAlign: 'center' }} />
                                     </div>
                                 </form>
                             </Col>
