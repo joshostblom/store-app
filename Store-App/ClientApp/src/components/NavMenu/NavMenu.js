@@ -33,7 +33,7 @@ export const NavMenu = ({ isLoggedIn, setLoggedIn }) => {
                         </NavItem>
                         <NavItem>
                             {isLoggedIn ? (
-                                <div class="text-dark nav-link" onClick={() => logout()}>Logout</div>
+                                <NavLink tag={Link} className="text-dark" to="/login" onClick={() => logout()}>Logout</NavLink>
                             ) : (
                                 <NavLink tag={Link} className="text-dark" to="/login">Login</NavLink>
                             )}
