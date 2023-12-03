@@ -25,7 +25,6 @@ export default function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/detailed-view/:productId" element={<DisplayDetailedProduct />} />
                     <Route path="/search" element={<SearchPage />} />
-                    <Route path="/apitest" element={<APITest />} />
                     <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
                     <Route path="/cart" element={<CartPage />} />
                     <Route path="/payment" element={<PaymentPage setLoggedIn={setLoggedIn} />} />

@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./DetailedProduct.css";
 import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
+import { SaleBanner } from "../../components/Sale/SaleBanner/SaleBanner.js";
+import { Row } from "react-bootstrap";
 
 export const DisplayDetailedProduct = () => {
     const { productId } = useParams();
@@ -60,43 +62,62 @@ export const DisplayDetailedProduct = () => {
 
 
 
+    //Check if today's date is within the sale date
+    function checkValidSale(sale) {
+        if (sale != null) {
+            const today = new Date();
+            const startDate = new Date(sale.startDate);
+            const endDate = new Date(sale.endDate);
+
+            return startDate < today && today < endDate;
+        } else {
+            return false;
+        }
+    }
+
     return (
         <div className="outer-container" style={{ paddingTop: '200px' }}>
             <table style={{ width: '100%', marginTop: '10px', borderCollapse: 'collapse' }}>
                 <tbody>
-                    <tr>
-                        <td>
-                            <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                <ProductBox product={productById}></ProductBox>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h6 className="product-text">{productById?.descript}</h6>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h6 className="product-text">{productById?.manufacturerInformation}</h6>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="quantity-container">
-                                <button className="decrease" onClick={handleDecrementQuantity}>-</button>
-                                <h6 className="quantity">QTY: {quantity}</h6>
-                                <button className="decreaseButton" onClick={handleIncrementQuantity}>+</button>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div className="addCart-container">
-                                <button className="addtoCart" onClick={handleAddToCart}>Add to Cart</button>
-                            </div>
-                        </td>
-                    </tr>
+                    <Row className="justify-content-md-center">
+                        <div style={{ display: 'flex', justifyContent: 'center' }}>
+                            <ProductBox product={productById}></ProductBox>
+                        </div>
+                    </Row>
+                    {onSale && (
+                        <Row className="justify-content-md-center">
+                            <SaleBanner sale={sale}></SaleBanner>
+                        </Row>
+                    )}
+                    <Row className="justify-content-md-center">
+                        <h6 className="product-text">{description}</h6>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h6 className="product-text">{rating}</h6>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h6 className="product-text">{manufacturer}</h6>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h6 className="product-text">{sku}</h6>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h6 className="product-text">{dimensions}</h6>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h6 className="decrease" onClick={handleDecrementQuantity}>{dimensions}</h6>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h6 className="increase" onClick={handleIncrementQuantity}>{dimensions}</h6>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h6 className="QTY: " >{quantity}</h6>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <div style={{ display: 'flex', justifyContent: 'right' }}>
+                            <button className="btn-primary" onClick={handleAddToCart}>Add to Cart</button>
+                        </div>
+                    </Row>
                 </tbody>
             </table>
         </div>
