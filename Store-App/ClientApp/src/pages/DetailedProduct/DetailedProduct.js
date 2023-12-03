@@ -10,6 +10,9 @@ export const DisplayDetailedProduct = () => {
     const { productId } = useParams();
     const [productById, setProductById] = useState({});
     const [quantity, setQuantity] = useState(1);
+    //Create a state for sale
+    const [sale, setSale] = useState({});
+
 
     const handleDecrementQuantity = () => {
         if (quantity > 1) {
@@ -60,7 +63,36 @@ export const DisplayDetailedProduct = () => {
         }
     };
 
+    //Get the sale from the controller
+    useEffect(() => {
+        if (productById?.saleId != null) {
+            fetch(`sale/getSale/${productById.saleId}`)
+                .then((response) => response.json())
+                .then((json) => {
+                    setSale(json);
+                });
+        }
+    }, [productById]);
 
+    const onSale = checkValidSale(sale);
+    const description = "Description: " + productById?.descript;
+    const rating = "Rating: " + productById?.rating + "/5 Stars";
+    const manufacturer = "Manufacturer: " + productById?.manufacturerInformation;
+    const sku = "SKU: " + productById?.sku;
+    const dimensions = "Dimensions: \"" + productById?.prodHeight + "\" X \"" + productById?.prodWidth + "\" X \"" + productById?.prodLength + "\" X \"" + productById?.prodWeight + "\"";
+
+    //Check if today's date is within the sale date
+    function checkValidSale(sale) {
+        if (sale != null) {
+            const today = new Date();
+            const startDate = new Date(sale.startDate);
+            const endDate = new Date(sale.endDate);
+
+            return startDate < today && today < endDate;
+        } else {
+            return false;
+        }
+    }
 
     //Check if today's date is within the sale date
     function checkValidSale(sale) {
