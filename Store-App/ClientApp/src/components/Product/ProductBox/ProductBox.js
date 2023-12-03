@@ -1,5 +1,6 @@
 ﻿import { Link } from 'react-router-dom';
 import { Row } from "react-bootstrap";
+import { Rating } from "../Rating/Rating.js";
 import "./ProductBox.css";
 import { useEffect, useState } from 'react';
 
@@ -49,6 +50,9 @@ export const ProductBox = ({ product }) => {
                         )}
                     </div>
                     <h5 className="product-title">{product?.productName}</h5>
+                    <Row className="justify-content-md-center">
+                        <Rating rating={ product?.rating } />
+                    </Row>
                     <Row className="justify-content-md-center">
                         {onSale && (
                             <h4 className="product-price">{ salePrice }</h4>
