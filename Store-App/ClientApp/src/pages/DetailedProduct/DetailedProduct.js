@@ -34,7 +34,9 @@ export const DisplayDetailedProduct = () => {
 
     const onSale = checkValidSale(sale);
     const description = "Description: " + productById?.descript;
+    const rating = "Rating: " + productById?.rating + "/5 Stars";
     const manufacturer = "Manufacturer: " + productById?.manufacturerInformation;
+    const sku = "SKU: " + productById?.sku;
     const dimensions = "Dimensions: \"" + productById?.prodHeight + "\" X \"" + productById?.prodWidth + "\" X \"" + productById?.prodLength + "\" X \"" + productById?.prodWeight + "\"";
 
     //Check if today's date is within the sale date
@@ -68,7 +70,13 @@ export const DisplayDetailedProduct = () => {
                         <h6 className="product-text">{description}</h6>
                     </Row>
                     <Row className="justify-content-md-center">
+                        <h6 className="product-text">{rating}</h6>
+                    </Row>
+                    <Row className="justify-content-md-center">
                         <h6 className="product-text">{manufacturer}</h6>
+                    </Row>
+                    <Row className="justify-content-md-center">
+                        <h6 className="product-text">{sku}</h6>
                     </Row>
                     <Row className="justify-content-md-center">
                         <h6 className="product-text">{dimensions}</h6>
