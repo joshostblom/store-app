@@ -5,6 +5,7 @@ import "./DetailedProduct.css";
 import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
 import { SaleBanner } from "../../components/Sale/SaleBanner/SaleBanner.js";
 import { Row } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 
 export const DisplayDetailedProduct = () => {
     const { productId } = useParams();
@@ -126,7 +127,9 @@ export const DisplayDetailedProduct = () => {
                    
                     <Row className="justify-content-md-center">
                         <div style={{ display: 'flex', justifyContent: 'right' }}>
-                            <button className="btn-primary" onClick={handleAddToCart}>Add to Cart</button>
+                            <Link to={`/cart`}>
+                                <button className="btn-primary" onClick={handleAddToCart}>Add to Cart</button>
+                            </Link>
                         </div>
                     </Row>
                 </tbody>
