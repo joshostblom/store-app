@@ -6,6 +6,7 @@ import { FaCartPlus, FaCheck } from "react-icons/fa";
 import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
 import { SaleBanner } from "../../components/Sale/SaleBanner/SaleBanner.js";
 import { Row } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 
 export const DisplayDetailedProduct = ({ isLoggedIn }) => {
     const { productId } = useParams();
