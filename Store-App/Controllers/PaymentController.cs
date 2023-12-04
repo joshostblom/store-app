@@ -63,6 +63,11 @@ namespace Store_App.Controllers
                     return BadRequest("Payment object is null");
                 }
 
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
                 _paymentContext.Payments.Add(payment);
                 await _paymentContext.SaveChangesAsync();
 

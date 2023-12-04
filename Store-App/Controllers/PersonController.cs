@@ -60,6 +60,11 @@ namespace Store_App.Controllers
         [HttpPost]
         public async Task<ActionResult<Person>> CreatePerson(Person person)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _personContext.People.Add(person);
             await _personContext.SaveChangesAsync();
 

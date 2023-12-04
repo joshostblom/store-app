@@ -57,6 +57,11 @@ namespace Store_App.Controllers
         [HttpPost]
         public async Task<ActionResult<Cart>> CreateCart(Cart cart)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _cartContext.Carts.Add(cart);
             await _cartContext.SaveChangesAsync();
 
