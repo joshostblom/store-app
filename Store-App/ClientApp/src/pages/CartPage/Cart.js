@@ -52,14 +52,16 @@ export const CartPage = ({ isLoggedIn }) => {
                             </Col>
                             <Col>
                                 <h6 className="d-flex justify-content-md-center">{totalPrice}</h6>
-                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                                     <Link to={`/order-confirmation`}>
-                                        <button className="btn btn-primary">Place Order</button>
+                                        <button className="btn btn-primary" style={{ marginBottom: '10px' }}>Place Order</button>
                                     </Link>
                                     <Link to={`/payment`}>
-                                        <button className="btn btn-success">Proceed to Checkout</button>
+                                        <button className="btn btn-success" style={{ marginBottom: '10px' }}>Proceed to Checkout</button>
                                     </Link>
-
+                                    <Link to={`/`}>
+                                        <button className="btn btn-success">Continue Shopping</button>
+                                    </Link>
                                 </div>
                             </Col>
                         </Row>
