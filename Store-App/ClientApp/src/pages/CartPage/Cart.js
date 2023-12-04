@@ -18,9 +18,10 @@ export const CartPage = ({ isLoggedIn }) => {
         try {
             const response = await fetch('producttocart/getproductsincartforcurrentuser');
             const json = await response.json();
-            setCartProducts(json)
+            setCartProducts(json);
         } catch (error) {
             console.error('Error fetching data:', error);
+            setCartProducts([]);
         }
     };
 
