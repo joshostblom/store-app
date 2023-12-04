@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import "./Cart.css";
 import { useState, useEffect } from "react";
 //import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
@@ -9,9 +9,10 @@ import { Button, Col, Form, Image, ListGroup, Row } from "react-bootstrap";
 
 
 
-export const CartPage = () => {
+export const CartPage = ({ isLoggedIn }) => {
     const [cartTotal, setCartTotal] = useState({});
     const [cartProducts, setCartProducts] = useState([]);
+    const navigate = useNavigate()
    
     const fetchProductsInCart = async () => {
         try {
@@ -24,8 +25,12 @@ export const CartPage = () => {
     };
 
     useEffect(() => {
-        fetchProductsInCart();
-    }, []);
+        if (!isLoggedIn) {
+            navigate("/login")
+        } else {
+            fetchProductsInCart();
+        }
+    }, [isLoggedIn]);
 
     const totalPrice = "Total Price: $" + cartTotal;
     return (
