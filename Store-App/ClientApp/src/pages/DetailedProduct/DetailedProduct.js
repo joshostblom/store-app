@@ -137,7 +137,7 @@ export const DisplayDetailedProduct = ({ isLoggedIn }) => {
                     <Row className="justify-content-md-center">
                         <div style={{ display: 'flex', justifyContent: 'right' }}>
                             {addedToCart ? (
-                                <button className="btn-primary btn-added-to-cart" onClick={handleAddToCart}>Added to Cart! <FaCheck /></button>
+                                <button className="btn-primary btn-added-to-cart" onClick={() => navigate("/cart")}>Added to Cart! <FaCheck /></button>
                             ) : (
                                 <button className="btn-primary" onClick={handleAddToCart}>Add to Cart <FaCartPlus /> </button>
                             )}
