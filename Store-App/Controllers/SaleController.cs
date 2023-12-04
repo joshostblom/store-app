@@ -39,6 +39,11 @@ namespace Store_App.Controllers
         [HttpPost]
         public async Task<ActionResult<Sale>> CreateSale(Sale sale)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _context.Sales.Add(sale);
             await _context.SaveChangesAsync();
 

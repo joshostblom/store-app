@@ -25,7 +25,7 @@ namespace Store_App.Controllers
 
             if (person != null)
             {
-                payment = await _paymentContext.Payments.FindAsync(person.getPaymentId());
+                payment = await _paymentContext.Payments.FindAsync(person.PaymentId);
             }
             if (payment == null)
             {
@@ -55,6 +55,11 @@ namespace Store_App.Controllers
                 if (payment == null)
                 {
                     return BadRequest("Payment object is null");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
                 }
 
                 _paymentContext.Payments.Add(payment);

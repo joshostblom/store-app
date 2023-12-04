@@ -53,6 +53,11 @@ namespace Store_App.Controllers
         [HttpPost]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _productContext.Products.Add(product);
             await _productContext.SaveChangesAsync();
 

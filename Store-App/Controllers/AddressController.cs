@@ -26,7 +26,7 @@ namespace Store_App.Controllers
 
             if (person != null)
             {
-                address = await _addressContext.Addresses.FindAsync(person.getAddressId());
+                address = await _addressContext.Addresses.FindAsync(person.AddressId);
             }
             if (address == null)
             {
@@ -51,12 +51,19 @@ namespace Store_App.Controllers
         [HttpPost]
         public async Task<ActionResult<Address>> CreateAddress(Address address)
         {
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _addressContext.Addresses.Add(address);
             await _addressContext.SaveChangesAsync();
 
             return CreatedAtAction(nameof(GetAddress), new { addressId = address.AddressId }, address);
         }
 
+        [HttpPut("{addressId}")]
         public async Task<IActionResult> UpdateAddress(int addressId, Address address)
         {
             if (address == null)

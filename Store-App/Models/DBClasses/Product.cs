@@ -1,9 +1,13 @@
-﻿namespace Store_App.Models.DBClasses
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Store_App.Models.DBClasses
 {
     public partial class Product
     {
+        [Required]
         public int ProductId { get; set; }
 
+        [Required]
         public string ProductName { get; set; } = null!;
 
         public double? Price { get; set; }
@@ -12,8 +16,10 @@
 
         public int? SaleId { get; set; }
 
+        [Required]
         public string Sku { get; set; } = null!;
 
+        [Required]
         public double Rating { get; set; }
 
         public string? Descript { get; set; }

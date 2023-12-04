@@ -46,6 +46,11 @@ namespace Store_App.Controllers
         [HttpPost]
         public async Task<ActionResult<Category>> CreateCategory(Category category)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             _categoryContext.Categories.Add(category);
             await _categoryContext.SaveChangesAsync();
 
