@@ -33,18 +33,5 @@ namespace Store_App.Models.DBClasses
         public virtual Cart? Cart { get; set; }
 
         public virtual Payment? Payment { get; set; }
-
-        public int? getCartId()
-        {
-            return this.CartId;
-        }
-        public int? getPaymentId()
-        {
-            return this.PaymentId;
-        }
-        public int? getAddressId()
-        {
-            return this.AddressId;
-        }
     }
 }

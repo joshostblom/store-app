@@ -26,7 +26,7 @@ namespace Store_App.Controllers
 
             if (person != null)
             {
-                address = await _addressContext.Addresses.FindAsync(person.getAddressId());
+                address = await _addressContext.Addresses.FindAsync(person.AddressId);
             }
             if (address == null)
             {

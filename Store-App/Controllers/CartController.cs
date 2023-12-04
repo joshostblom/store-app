@@ -25,7 +25,7 @@ namespace Store_App.Controllers
 
             if (person != null)
             {
-                cart = await _cartContext.Carts.FindAsync(person.getCartId());
+                cart = await _cartContext.Carts.FindAsync(person.CartId);
             }
             if (cart == null)
             {
@@ -104,7 +104,7 @@ namespace Store_App.Controllers
 
             if (person != null)
             {
-                cart = await _cartContext.Carts.FindAsync(person.getCartId());
+                cart = await _cartContext.Carts.FindAsync(person.CartId);
             }
             if (cart == null)
             {
