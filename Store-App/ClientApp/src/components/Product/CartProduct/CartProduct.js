@@ -4,7 +4,7 @@ import { Rating } from "../Rating/Rating.js";
 import "./CartProduct.css";
 import { useEffect, useState } from 'react';
 
-export const CartProduct = ({ product }) => {
+export const CartProduct = ({ product, onRemove }) => {
 
     //Create a state for sale
     const [sale, setSale] = useState({});
@@ -60,7 +60,7 @@ export const CartProduct = ({ product }) => {
             
             if (responseRemoveFromCart.ok) {
                 console.log('Product removed from cart');
-                
+                onRemove();
             } else {
                 console.error('Failed to remove product from cart');
             }

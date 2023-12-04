@@ -13,18 +13,17 @@ export const CartPage = () => {
     const [cartTotal, setCartTotal] = useState({});
     const [cartProducts, setCartProducts] = useState([]);
    
-
+    const fetchProductsInCart = async () => {
+        try {
+            const response = await fetch('producttocart/getproductsincartforcurrentuser');
+            const json = await response.json();
+            setCartProducts(json)
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
     useEffect(() => {
-        const fetchProductsInCart = async () => {
-            try {
-                const response = await fetch('producttocart/getproductsincartforcurrentuser');
-                const json = await response.json();
-                setCartProducts(json)
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
         fetchProductsInCart();
     }, []);
 
@@ -40,7 +39,7 @@ export const CartPage = () => {
                                 {cartProducts.length > 0 ?
                                     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
                                         {cartProducts?.map((product) => (
-                                            <CartProduct product={product.product}></CartProduct>
+                                            <CartProduct product={product.product} onRemove={ () => fetchProductsInCart() }></CartProduct>
                                         ))}
                                     </div>
                                     : <div><h2>Empty Cart</h2></div>}
