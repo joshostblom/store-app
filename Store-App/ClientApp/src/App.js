@@ -23,7 +23,7 @@ export default function App() {
             <Container>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/detailed-view/:productId" element={<DisplayDetailedProduct />} />
+                    <Route path="/detailed-view/:productId" element={<DisplayDetailedProduct isLoggedIn={isLoggedIn} />} />
                     <Route path="/search" element={<SearchPage />} />
                     <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
                     <Route path="/cart" element={<CartPage isLoggedIn={isLoggedIn} />} />

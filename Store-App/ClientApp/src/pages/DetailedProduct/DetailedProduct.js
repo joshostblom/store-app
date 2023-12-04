@@ -1,15 +1,18 @@
 import React from 'react';
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./DetailedProduct.css";
+import { FaCartPlus, FaCheck } from "react-icons/fa";
 import { ProductBox } from "../../components/Product/ProductBox/ProductBox.js";
 import { SaleBanner } from "../../components/Sale/SaleBanner/SaleBanner.js";
 import { Row } from "react-bootstrap";
 
-export const DisplayDetailedProduct = () => {
+export const DisplayDetailedProduct = ({ isLoggedIn }) => {
     const { productId } = useParams();
     const [productById, setProductById] = useState({});
-  
+    const [addedToCart, setAddedToCart] = useState(false);
+    const navigate = useNavigate()
+
     //Create a state for sale
     const [sale, setSale] = useState({});
 
@@ -22,31 +25,37 @@ export const DisplayDetailedProduct = () => {
     }, [productId]);
 
     const handleAddToCart = async () => {
-        try {
-            const responseCart = await fetch('/cart/GetCartForCurrentUser');
 
-            if (!responseCart.ok) {
+        if (!isLoggedIn) {
+            navigate("/login");
+        } else {
+            try {
+                const responseCart = await fetch('/cart/GetCartForCurrentUser');
+
+                if (!responseCart.ok) {
                     console.error('Error getting cart for current user');
-                return;
+                    return;
+                }
+
+                const cartData = await responseCart.json();
+                const cartId = cartData.cartId;
+
+                const responseAddToCart = await fetch(`/producttocart/AddProductToCart/${cartId}/products/${productId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (responseAddToCart.ok) {
+                    console.log('Product added to cart');
+                    setAddedToCart(true);
+                } else {
+                    console.error('Failed to add product to cart');
+                }
+            } catch (error) {
+                console.error('Error adding product to cart:', error);
             }
-
-            const cartData = await responseCart.json();
-            const cartId = cartData.cartId;
-
-            const responseAddToCart = await fetch(`/producttocart/AddProductToCart/${cartId}/products/${productId}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (responseAddToCart.ok) {
-                console.log('Product added to cart');
-            } else {
-                console.error('Failed to add product to cart');
-            }
-        } catch (error) {
-            console.error('Error adding product to cart:', error);
         }
     };
 
@@ -123,10 +132,14 @@ export const DisplayDetailedProduct = () => {
                     <Row className="justify-content-md-center">
                         <h6 className="product-text">{dimensions}</h6>
                     </Row>
-                   
+
                     <Row className="justify-content-md-center">
                         <div style={{ display: 'flex', justifyContent: 'right' }}>
-                            <button className="btn-primary" onClick={handleAddToCart}>Add to Cart</button>
+                            {addedToCart ? (
+                                <button className="btn-primary btn-added-to-cart" onClick={handleAddToCart}>Added to Cart! <FaCheck /></button>
+                            ) : (
+                                <button className="btn-primary" onClick={handleAddToCart}>Add to Cart <FaCartPlus /> </button>
+                            )}
                         </div>
                     </Row>
                 </tbody>
