@@ -1,18 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Store_App.Controllers.Interfaces;
 using Store_App.Models.DBClasses;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.SqlClient;
-using System.Threading.Tasks;
 
 namespace Store_App.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class ProductToCategoryController : ControllerBase
+    public class ProductToCategoryController : ControllerBase, IProductToCategoryController
     {
         private readonly StoreAppDbContext _context;
 
@@ -21,7 +17,7 @@ namespace Store_App.Controllers
             _context = context;
         }
 
-        [HttpGet("{categoryId}/products")]
+        [HttpGet("{categoryId}")]
         public async Task<ActionResult<IEnumerable<ProductToCategory>>> GetProductsInCategory(int categoryId)
         {
             if (_context.ProductToCategories == null)
@@ -31,7 +27,7 @@ namespace Store_App.Controllers
 
             var productsInCategory = await _context.ProductToCategories
                 .Where(ptc => ptc.CategoryId == categoryId)
-                .Include(ptc => ptc.ProductId)
+                .Include(ptc => ptc.Product)
                 .ToListAsync();
 
             // Check if productsInCategory is null

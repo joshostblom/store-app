@@ -1,20 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Store_App.Controllers.Interfaces;
 using Store_App.Helpers;
 using Store_App.Models.DBClasses;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Threading.Tasks;
-using Store_App.Helpers;
 
 namespace Store_App.Controllers
 {
     [Route("[controller]/[action]")]
     [ApiController]
-    public class PaymentController : ControllerBase
+    public class PaymentController : ControllerBase, IPaymentController
     {
         private readonly StoreAppDbContext _paymentContext;
 
@@ -24,7 +18,7 @@ namespace Store_App.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<Payment>> GetPaymentUsingPersonId()
+        public async Task<ActionResult<Payment>> GetPaymentForCurrentUser()
         {
             Person? person = UserHelper.GetCurrentUser();
             Payment? payment = null;

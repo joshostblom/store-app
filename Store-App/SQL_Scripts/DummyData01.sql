@@ -1,7 +1,7 @@
 -- Insert dummy data into Addresses table
-INSERT INTO Addresses (Street, City, Country, PostalCode)
-VALUES ('123 Main St', 'City1', 'Country1', '12345'),
-       ('456 Elm St', 'City2', 'Country2', '67890');
+INSERT INTO Addresses (Street, City, [State], Country, PostalCode)
+VALUES ('123 Main St', 'City1', 'State1', 'Country1', '12345'),
+       ('456 Elm St', 'City2', 'State2', 'Country2', '67890');
 
 -- Insert dummy data into Cart table
 INSERT INTO Cart (Total)

@@ -45,6 +45,9 @@ namespace Store_App.Models.DBClasses
                 entity.Property(e => e.City)
                     .HasMaxLength(255)
                     .IsUnicode(false);
+                entity.Property(e => e.State)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
                 entity.Property(e => e.Country)
                     .HasMaxLength(255)
                     .IsUnicode(false);
@@ -177,14 +180,6 @@ namespace Store_App.Models.DBClasses
                 entity.Property(e => e.ProdToCartId).HasColumnName("ProdToCartID");
                 entity.Property(e => e.CartId).HasColumnName("CartID");
                 entity.Property(e => e.ProductId).HasColumnName("ProductID");
-
-                entity.HasOne(d => d.Cart).WithMany(p => p.ProductToCarts)
-                    .HasForeignKey(d => d.CartId)
-                    .HasConstraintName("FK__ProductTo__CartI__40F9A68C");
-
-                entity.HasOne(d => d.Product).WithMany(p => p.ProductToCarts)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK__ProductTo__Produ__41EDCAC5");
             });
 
             modelBuilder.Entity<ProductToCategory>(entity =>

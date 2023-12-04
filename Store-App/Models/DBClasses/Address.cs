@@ -16,6 +16,9 @@ namespace Store_App.Models.DBClasses
         public string City { get; set; } = null!;
 
         [Required]
+        public string State { get; set; } = null!;
+
+        [Required]
         public string Country { get; set; } = null!;
 
         [Required]

@@ -41,6 +41,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-top: 10px; /* Add some margin to separate the image and text */
+    margin-bottom: 0px;
 }
 
 .product-price {

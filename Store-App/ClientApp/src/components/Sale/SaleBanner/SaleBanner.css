@@ -1,0 +1,8 @@
+﻿.saleText {
+    display: flex;
+    background-color: red;
+    color: white;
+    width: auto;
+    font-size: 24px;
+    font-weight: bold;
+}

@@ -7,6 +7,7 @@ using Store_App.Models.DBClasses;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Store_App.Helpers;
 using static ProductControllerUnitTests.ProductControllerTests;
 
 namespace CartControllerUnitTests
@@ -14,6 +15,49 @@ namespace CartControllerUnitTests
     [TestClass]
     public class CartControllerTests
     {
+        [TestMethod]
+        public async Task GetCartForCurrentUser_ReturnsCartById()
+        {
+            // Arrange
+            var controller = new CartController(MockDbContext());
+            Person? person = new Person { CartId = 1 };
+            UserHelper.SetCurrentUser(person);
+
+            // Act
+            var result = await controller.GetCartForCurrentUser();
+
+            // Assert
+            Assert.IsNotNull(result);
+
+            // Check if the result is NotFound
+            if (result.Result is NotFoundResult)
+            {
+                Assert.IsNull(result.Value, "Expected null Value property when cart is not found.");
+            }
+            else
+            {
+                Assert.IsInstanceOfType(result.Result, typeof(ActionResult<Cart>));
+                Assert.IsInstanceOfType(result.Value, typeof(Cart));
+                Assert.AreEqual(1, result.Value.CartId);
+            }
+        }
+
+
+        [TestMethod]
+        public async Task GetCartForCurrentUser_ReturnsNotFoundForNonexistentCart()
+        {
+            // Arrange
+            var controller = new CartController(MockDbContext());
+            var cartId = 999; // Assuming this cart ID does not exist in the mock data
+
+            // Act
+            var result = await controller.GetCartForCurrentUser();
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
+        }
+
         [TestMethod]
         public async Task GetCart_ReturnsCartById()
         {

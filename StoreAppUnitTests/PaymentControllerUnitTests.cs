@@ -15,6 +15,20 @@ namespace PaymentControllerUnitTests
     public class PaymentControllerTests
     {
         [TestMethod]
+        public async Task GetPaymentForCurrentUser_ReturnsNotFound()
+        {
+            // Arrange
+            var dbContextMock = MockDbContext();
+            var controller = new PaymentController(dbContextMock);
+
+            // Act
+            var result = await controller.GetPaymentForCurrentUser();
+
+            // Assert
+            Assert.IsInstanceOfType(result.Result, typeof(NotFoundResult));
+        }
+
+        [TestMethod]
         public async Task GetPayment_ReturnsNotFound()
         {
             // Arrange
