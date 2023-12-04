@@ -9,22 +9,9 @@ import { Row } from "react-bootstrap";
 export const DisplayDetailedProduct = () => {
     const { productId } = useParams();
     const [productById, setProductById] = useState({});
-    const [quantity, setQuantity] = useState(1);
+  
     //Create a state for sale
     const [sale, setSale] = useState({});
-
-
-    const handleDecrementQuantity = () => {
-        if (quantity > 1) {
-            setQuantity((prevQuantity) => prevQuantity - 1);
-        }
-    };
-
-    const handleIncrementQuantity = () => {
-        if (quantity < 10) {
-            setQuantity((prevQuantity) => prevQuantity + 1);
-        }
-    };
 
     useEffect(() => {
         fetch(`product/getProduct/${productId}`)
@@ -136,15 +123,7 @@ export const DisplayDetailedProduct = () => {
                     <Row className="justify-content-md-center">
                         <h6 className="product-text">{dimensions}</h6>
                     </Row>
-                    <Row className="justify-content-md-center">
-                        <h6 className="decrease" onClick={handleDecrementQuantity}>{dimensions}</h6>
-                    </Row>
-                    <Row className="justify-content-md-center">
-                        <h6 className="increase" onClick={handleIncrementQuantity}>{dimensions}</h6>
-                    </Row>
-                    <Row className="justify-content-md-center">
-                        <h6 className="QTY: " >{quantity}</h6>
-                    </Row>
+                   
                     <Row className="justify-content-md-center">
                         <div style={{ display: 'flex', justifyContent: 'right' }}>
                             <button className="btn-primary" onClick={handleAddToCart}>Add to Cart</button>
