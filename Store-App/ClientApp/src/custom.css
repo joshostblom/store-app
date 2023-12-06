@@ -16,6 +16,10 @@ code {
 }
 
 .btn-primary {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
     color: #fff;
     background-color: deepskyblue;
     border:none;

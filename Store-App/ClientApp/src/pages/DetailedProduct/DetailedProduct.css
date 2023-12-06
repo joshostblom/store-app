@@ -10,3 +10,19 @@
 .product-text {
     text-align: center;
 }
+
+.quantity-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addCart-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-added-to-cart {
+    background-color: #009E60;
+}
