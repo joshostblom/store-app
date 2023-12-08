@@ -33,6 +33,7 @@ export const DisplayDetailedProduct = () => {
     }, [productById]);
 
     const onSale = checkValidSale(sale);
+    const name = "Name: " + productById?.productName;
     const description = "Description: " + productById?.descript;
     const rating = "Rating: " + productById?.rating + "/5 Stars";
     const manufacturer = "Manufacturer: " + productById?.manufacturerInformation;
@@ -66,6 +67,9 @@ export const DisplayDetailedProduct = () => {
                             <SaleBanner sale={sale}></SaleBanner>
                         </Row>
                     )}
+                    <Row className="justify-content-md-center">
+                        <h6 className="product-text">{name}</h6>
+                    </Row>
                     <Row className="justify-content-md-center">
                         <h6 className="product-text">{description}</h6>
                     </Row>

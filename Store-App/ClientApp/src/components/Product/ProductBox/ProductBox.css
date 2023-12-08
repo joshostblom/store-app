@@ -6,6 +6,8 @@
     display: flex;
     color: black;
     margin: 15px;
+    max-width: 175px;
+    min-width: 175px;
     text-decoration: none;
     flex-direction: column;
     align-content: center;
