@@ -78,3 +78,8 @@ VALUES
   ((SELECT ProductID FROM Product WHERE ProductName = 'Under Armour Mens Tech 2.0 Short Sleeve T-Shirt'), (SELECT CategoryID FROM Category WHERE Name = 'Clothing')),
   ((SELECT ProductID FROM Product WHERE ProductName = 'Hamilton Beach Coffee Maker'), (SELECT CategoryID FROM Category WHERE Name = 'Electronics')),
   ((SELECT ProductID FROM Product WHERE ProductName = 'Fitbit Charge 4 Fitness and Activity Tracker'), (SELECT CategoryID FROM Category WHERE Name = 'Electronics'));
+
+-- Insert dummy data into Person table
+INSERT INTO Person (LastName, FirstName, Email, Password, AddressID, PaymentID, CartID)
+VALUES ('Doe', 'John', 'john.doe@example.com', 'password123', 31, 28, 31),
+       ('Smith', 'Jane', 'jane.smith@example.com', 'pass456', 32, 29, 32);
