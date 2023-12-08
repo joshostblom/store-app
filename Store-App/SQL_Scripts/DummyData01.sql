@@ -25,8 +25,8 @@ VALUES ('Doe', 'John', '1234567890123456', 123, '2024-12-31'),
 
 -- Insert dummy data into Sale table
 INSERT INTO Sale (StartDate, EndDate, PercentOff)
-VALUES ('2023-01-01 00:00:00', '2023-02-28 23:59:59', 10.00),
-       ('2023-03-01 00:00:00', '2023-03-31 23:59:59', 15.00);
+VALUES ('2023-01-01 00:00:00', '2024-02-28 23:59:59', 10.00),
+       ('2023-03-01 00:00:00', '2024-03-31 23:59:59', 15.00);
 
 -- Insert dummy data into Product table
 INSERT INTO Product (ProductName, Price, ImageURL, SaleID, Sku, Rating, Descript, ManufacturerInformation, ProdHeight, ProdWidth, ProdLength, ProdWeight)
