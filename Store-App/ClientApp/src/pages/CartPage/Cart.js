@@ -24,16 +24,25 @@ export const CartPage = ({ isLoggedIn }) => {
             setCartProducts([]);
         }
     };
-
+    const fetchCartData = async () => {
+        try {
+            const response = await fetch('cart/getcartforcurrentuser');
+            const json = await response.json();
+            setCartTotal(json.total);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     useEffect(() => {
         if (!isLoggedIn) {
             navigate("/login")
         } else {
             fetchProductsInCart();
+            fetchCartData();
         }
     }, [isLoggedIn]);
 
-    const totalPrice = "Total Price: $" + cartTotal;
+    const totalPrice = "Total Price: $" + parseFloat(cartTotal).toFixed(2);
     return (
         <div>
             <h1 className="text-center">Shopping Cart ({cartProducts.length})</h1>

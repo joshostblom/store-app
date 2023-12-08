@@ -72,7 +72,7 @@ export const PaymentPage = ({ isLoggedIn, setLoggedIn }) => {
         fetchProductsInCart();
     }, []);
 
-    const totalPrice = "Total Price: $" + cartTotal;
+    const totalPrice = "Total Price: $" + parseFloat(cartTotal).toFixed(2);
     const expirationDate = cardExpirationDate.substring(0, 10)
     return (
         <div>
