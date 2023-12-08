@@ -3,6 +3,8 @@ import './custom.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useState } from 'react';
 import { LoginPage } from './pages/LoginPage/LoginPage';
+import { CartPage } from './pages/CartPage/Cart'
+//import { APITest } from './components/APITest/APITest';
 import { DisplayDetailedProduct } from "./pages/DetailedProduct/DetailedProduct.js";
 import { SearchPage } from './pages/SearchPage/SearchPage';
 import { NavMenu } from './components/NavMenu/NavMenu';
@@ -21,9 +23,10 @@ export default function App() {
             <Container>
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/detailed-view/:productId" element={<DisplayDetailedProduct />} />
+                    <Route path="/detailed-view/:productId" element={<DisplayDetailedProduct isLoggedIn={isLoggedIn} />} />
                     <Route path="/search" element={<SearchPage />} />
                     <Route path="/login" element={<LoginPage setLoggedIn={setLoggedIn} />} />
+                    <Route path="/cart" element={<CartPage isLoggedIn={isLoggedIn} />} />
                     <Route path="/payment" element={<PaymentPage setLoggedIn={setLoggedIn} />} />
                     <Route path="/order-confirmation" element={<OrderConfirmationPage setLoggedIn={setLoggedIn} />} />
                 </Routes>

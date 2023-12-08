@@ -75,6 +75,22 @@ namespace Store_App.Controllers
             if (product == null || cart == null)
             {
                 return NotFound();
+
+            }
+
+            var sale = await _context.Sales.FindAsync(product.SaleId);
+            bool productOnSale = sale != null && sale.StartDate < DateTime.UtcNow && sale.EndDate > DateTime.UtcNow;
+            var productPrice = productOnSale ? product.Price * (1 - (double)sale.PercentOff * 0.01) : product.Price;
+            cart.Total += productPrice ?? 0;
+
+            _context.Entry(cart).State = EntityState.Modified;
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                throw;
             }
 
             var productToCart = new ProductToCart
@@ -97,6 +113,15 @@ namespace Store_App.Controllers
                 // Log or add breakpoints to check values
                 Console.WriteLine($"Removing product {productId} from cart {cartId}");
 
+                var product = await _context.Products.FindAsync(productId);
+                var cart = await _context.Carts.FindAsync(cartId);
+
+                if (product == null || cart == null)
+                {
+                    return NotFound();
+
+                }
+
                 var productToCart = await _context.ProductToCarts
                     .Where(ptc => ptc.CartId == cartId && ptc.ProductId == productId)
                     .ToListAsync(); // Ensure asynchronous query execution
@@ -111,6 +136,22 @@ namespace Store_App.Controllers
                 await _context.SaveChangesAsync();
 
                 Console.WriteLine($"Product {productId} removed successfully from cart {cartId}");
+
+                var sale = await _context.Sales.FindAsync(product.SaleId);
+                bool productOnSale = sale != null && sale.StartDate < DateTime.UtcNow && sale.EndDate > DateTime.UtcNow;
+                var productPrice = productOnSale ? product.Price * (1 - (double)sale.PercentOff * 0.01) : product.Price;
+                cart.Total -= productPrice ?? 0;
+
+                _context.Entry(cart).State = EntityState.Modified;
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    throw;
+                }
+
                 return Ok();
             }
             catch (Exception ex)

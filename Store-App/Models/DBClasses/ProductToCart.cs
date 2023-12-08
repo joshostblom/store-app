@@ -13,8 +13,6 @@ namespace Store_App.Models.DBClasses
 
         public int? ProductId { get; set; }
 
-        public virtual Cart? Cart { get; set; }
-
         public virtual Product? Product { get; set; }
     }
 }

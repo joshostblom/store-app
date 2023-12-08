@@ -31,6 +31,9 @@ namespace Store_App.Controllers
             {
                 return NotFound();
             }
+
+
+
             return cart;
         }
 
@@ -142,5 +145,8 @@ namespace Store_App.Controllers
 
             return Ok(); // Return OkResult upon successful deletion
         }
+
+        
+
     }
 }
