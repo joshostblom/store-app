@@ -48,3 +48,7 @@ If you have any questions or need assistance, feel free to reach out to any of o
 9. **Sale Information:** Sale details include the start and end dates, applicable products or categories, and the discount amount (dollar amount or percentage).
 
 10. **User Privacy:** Users can be confident that their information and cart contents are kept private and secure, with no visibility into other users' data.
+
+## Note For Running the App
+
+To connect to your own database, navigate to the `appsettings.json` file and enter your database connection string as the value for the `"ShoppingAppCon"` key.
