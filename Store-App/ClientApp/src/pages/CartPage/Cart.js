@@ -54,7 +54,7 @@ export const CartPage = ({ isLoggedIn }) => {
                                 {cartProducts.length > 0 ?
                                     <div style={{ display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
                                         {cartProducts?.map((product) => (
-                                            <CartProduct product={product.product} onRemove={ () => fetchProductsInCart() }></CartProduct>
+                                            <CartProduct product={product.product} onRemove={() => { fetchProductsInCart(); fetchCartData() }}></CartProduct>
                                         ))}
                                     </div>
                                     : <div><h2>Empty Cart</h2></div>}
