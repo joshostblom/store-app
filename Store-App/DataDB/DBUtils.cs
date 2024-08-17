@@ -11,10 +11,10 @@ namespace Store_App.DataDB
     {
         public static SqlConnection GetDBConnection()
         {
-            string datasource = @"209.50.10.62,49170";
-            string database = "master";
-            string username = "store-admin";
-            string password = "brand-new-store-2023";
+            string datasource = @"IP_SECRET";
+            string database = "DB_SECRET";
+            string username = "USERNAME_SECRET";
+            string password = "PASS_SECRET";
             return DBSQLServerUtils.GetDBConnection(datasource, database, username, password);
         }
     }
